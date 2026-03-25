@@ -6,7 +6,9 @@ import axios from "axios";
 const token = process.env["GH_MODELS_TOKEN"];
 const serperKey = process.env["SERPER_API_KEY"];
 const client = new ModelClient("https://models.inference.ai.azure.com", new AzureKeyCredential(token));
-const modelName = "DeepSeek-R1"; // မြန်မာစာနဲ့ Logic ပိုကောင်းဖို့ DeepSeek သုံးပါမယ်
+
+// --- DeepSeek-V3 ကို အသုံးပြုခြင်း ---
+const modelName = "DeepSeek-V3"; 
 
 async function askAI(role, task) {
   const response = await client.path("/chat/completions").post({
@@ -35,37 +37,23 @@ async function googleSearch(query) {
 }
 
 async function runUniversalAgent() {
-  // Telegram ကနေ ပို့လိုက်တဲ့ "ဘာဆောက်ပေးရမလဲ" ဆိုတဲ့ ခိုင်းစေချက်
   const userRequirement = process.env["NEWS_HEADLINE"] || "ရွှေဈေးတွက်ချက်ပေးတဲ့ Web App";
-  console.log(`🚀 UNIVERSAL AGENT ACTIVATED: Building "${userRequirement}"\n`);
+  console.log(`🚀 UNIVERSAL AGENT (DeepSeek-V3) ACTIVATED: Building "${userRequirement}"\n`);
 
-  // --- အဆင့် (၁): Research & Planning ---
-  // Agent က ဒီ App မှာ ဘာတွေပါသင့်လဲ Google မှာ ရှာပြီး Plan ဆွဲပါမယ်
-  const searchResults = await googleSearch(`best features for ${userRequirement}`);
+  const searchResults = await googleSearch(`how to build ${userRequirement}`);
+  
   const plan = await askAI(
-    "You are a Senior Product Manager & Architect.",
-    `User wants to build: ${userRequirement}. Based on these references: \n${searchResults}\n Create a detailed UI/UX plan and features list in Burmese.`
-  );
-  console.log("📝 Plan Created:", plan.substring(0, 100) + "...");
-
-  // --- အဆင့် (၂): Advanced Coding ---
-  // Plan အတိုင်း HTML/Tailwind/JavaScript code တွေ ရေးပါမယ်
-  const code = await askAI(
-    "You are an Expert Full-stack Developer (Devin/Replit style). Response ONLY with full HTML/JS/CSS code in one file.",
-    `Build a functional and beautiful Web App/Website for: "${userRequirement}". 
-     Use the following plan: ${plan}. 
-     Ensure it is fully interactive with JavaScript if needed. 
-     Use Tailwind CSS for a modern Look. All text should be in Burmese.`
+    "You are a Senior Web Architect.",
+    `Build requirement: ${userRequirement}. Search references: \n${searchResults}\n Create a structure for this app in Burmese.`
   );
 
-  // --- အဆင့် (၃): Self-Correction & Polishing ---
   const finalCode = await askAI(
-    "You are a Quality Assurance Engineer. Review the code for bugs and improve the Burmese font rendering.",
-    `Check this code for errors and ensure the UI is perfect: \n\n${code}`
+    "You are an Expert Full-stack Developer. Response ONLY with full HTML/JS/CSS code in one file using Tailwind CSS.",
+    `Build this App/Website: "${userRequirement}". Plan: ${plan}. Ensure interactivity with JavaScript and use correct Burmese fonts.`
   );
 
   fs.writeFileSync("index.html", finalCode.replace(/```html|```/g, "").trim());
-  console.log(`\n✅ MISSION ACCOMPLISHED: "${userRequirement}" is now live!`);
+  console.log(`\n✅ DeepSeek-V3 has finished building: "${userRequirement}"`);
 }
 
 runUniversalAgent();
