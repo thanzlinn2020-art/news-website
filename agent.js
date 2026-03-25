@@ -1,4 +1,4 @@
-import { ModelClient } from "@azure-rest/ai-inference";
+import ModelClient from "@azure-rest/ai-inference";
 import { AzureKeyCredential } from "@azure/core-auth";
 import fs from "fs";
 
