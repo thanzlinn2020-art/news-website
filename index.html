@@ -1,72 +1,106 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာ့ရွှေဈေးနှင့် ကမ္ဘာ့စီးပွားရေး - သတင်း Website</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&display=swap');
-        body {
-            font-family: 'Noto Sans Myanmar', sans-serif;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>နောက်ဆုံးရ အားကစားသတင်း</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&display=swap">
+  <style>
+    body {
+      font-family: 'Noto Sans Myanmar', sans-serif;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+<body class="bg-white text-gray-800">
 
-    <!-- USD and Gold Price Ticker -->
-    <div class="bg-blue-700 text-white py-2">
-        <marquee behavior="scroll" direction="left">
-            USD: 2,100 ကျပ် | ရွှေစျေး: ၁ သိန်း ၃ သောင်း ၅ ထောင် ၀က်
-        </marquee>
+  <!-- Header -->
+  <header class="shadow-md bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-gray-900">နောက်ဆုံးရ အားကစားသတင်း</h1>
+      <nav>
+        <a href="#" class="text-gray-700 hover:text-gray-900 mx-4">ပင်မစာမျက်နှာ</a>
+        <a href="#" class="text-gray-700 hover:text-gray-900 mx-4">နေရာခံ</a>
+        <a href="#" class="text-gray-700 hover:text-gray-900 mx-4">ဆက်သွယ်ရန်</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Navbar -->
-    <nav class="bg-gray-800 text-white">
-        <div class="container mx-auto flex justify-between items-center py-4">
-            <a href="#" class="text-2xl font-bold">သတင်း Website</a>
-            <ul class="flex space-x-6">
-                <li><a href="#" class="hover:underline">ပင်မစာမျက်နှာ</a></li>
-                <li><a href="#" class="hover:underline">အားကစား</a></li>
-                <li><a href="#" class="hover:underline">နည်းပညာ</a></li>
-                <li><a href="#" class="hover:underline">စီးပွားရေး</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="container mx-auto mt-8 px-4">
-        <!-- Article Image -->
-        <img src="https://images.unsplash.com/photo-1585829365234-78d9b8129f50?q=80&w=800" alt="Gold and Economy" class="w-full h-96 object-cover rounded-xl mb-6">
-
-        <!-- Article Title -->
-        <h1 class="text-3xl font-bold mb-4">မြန်မာ့ရွှေဈေးနှင့် ကမ္ဘာ့စီးပွားရေး နောက်ဆုံးရ အခြေအနေ</h1>
-
-        <!-- Article Content -->
-        <p class="mb-4">
-            ယနေ့ မြန်မာနိုင်ငံ၏ ရွှေဈေးသည် စျေးကွက်အတွင်းမှာ အတက်အကျအနည်းငယ် ရှိနေသော်လည်း ကျွမ်းကျင်သူများက ပြောကြားသည့်အတိုင်း
-            မြန်မာ့စီးပွားရေးအပေါ်တွင် ထိခိုက်မှုသည် ပိုမိုကြီးမားလာမည်ဟု ခန့်မှန်းရသည်။ ယခုအခါ ဇန်နဝါရီလတွင် အနည်းဆုံး တစ်လုံးဈေးသည်
-            ၁ သိန်း ၃ သောင်း ၅ ထောင်ကျော်ရှိနေပြီး၊ အင်အားကြီးမားသော ကမ္ဘာ့စီးပွားရေး ဖိအားများပါဝင်လာနေကြောင်းတွေ့ရသည်။
-        </p>
-        <p class="mb-4">
-            ဒေသတွင်းနဲ့ နိုင်ငံတကာအဆင့်များအတွင်း အခြေအနေသည် ရည်မှန်းချက်များကို ပြန်လည်ပြုလုပ်ဖို့လိုအပ်နေပါသည်။ ရှမ်းပြည် 
-            အခြေစိုက်ရွှေထုတ်လုပ်ရေးအဖွဲ့၌လည်း ထုတ်လုပ်မှုလျော့နည်းမှုများကို သတိထားမိပါသည်။ ထုတ်လုပ်မှုကုန်ကျစရိတ်များနှင့် နိုင်ငံတော် 
-            အချို့က သတ်မှတ်အသိမှတ်ပြုထားသော အခွန်လိုအပ်ချက်များကြောင့် ရွှေရောင်းရေးအခြေအနေ ယခုလိုအခြေနေဖြစ်လာခြင်းဖြစ်ပါတယ်။
-        </p>
+  <!-- Main Section -->
+  <main class="mt-8">
+    <div class="max-w-5xl mx-auto px-4">
+      <article class="prose lg:prose-xl">
+        <h2 class="text-center text-2xl font-bold text-gray-900">နောက်ဆုံးရ အားကစားသတင်း</h2>
+        <p class="text-center text-gray-500 italic">နိုင်ငံတကာနှင့် ပြည်တွင်း အားကစားနယ်ပယ်များ၏ စိတ်ဝင်စားဖွယ် ဖန်တီးမှုများ</p>
+        <p class="text-gray-500">အောက်တိုဘာ၊ ၂၀၂၃ -</p>
         <p>
-            ကမ္ဘာ့စီးပွားရေးနှင့်ပတ်သက်လျှင် အခြေအနေမှာ ပိုမိုရှုပ်ထွေးလာခဲ့သည်။ အမေရိကန်နှင့် နိုင်ငံအချို့သုံးစွဲသည့် အမေရိကန်ဒေါ်လာစနစ်
-            ခိုမ်းခိုန့်ရှိပြီး ဖြေရှင်းရန်လိုအပ်နေကာ ငွေကြေးအဖွဲ့အစည်း (Fed) မှာနှင့် တိုင်းပြည်များကိုအရင်းအမြစ်ပိုမိုလိုအပ်လာပါတယ်။ 
-            ယခုအချိန်တွင် စတင်ထွေထွက်နေသော အတိုးနှုန်းမြင့်တက်မှုကို ပိုင်းပိုင်း သက်ဆိုင်ကာ ကျဉ်းကျဉ်းစီးပိုင်းရုံတင်ဖြစိမ့်မှုများကို
-            အလေးထားစဉ်းစားတိုင်းဖြစ်စေတော့မည်။
+          အားကစားနိုင်ငံတကာနယ်ပယ်နှင့် ပြည်တွင်းလောကများတွင် စိတ်ဝင်စားဖွယ် ကျရောက်စရာဖြစ်စဉ်များကို 
+          နောက်ဆုံးရ သတင်းအနေဖြင့် တင်ပြလိုက်ပါသည်။ အောက်ဖော်ပြပါ သတင်းများသည် 
+          ကမ္ဘာတစ်ဝန်းရှိ အားကစားပရိတ်သတ်များနှင့် မြန်မာနိုင်ငံသားများအတွက် 
+          အထူးစိတ်ဝင်စားဖွယ် ဖြစ်နေချိန်တွင် ကမ္ဘာအဖွဲ့အစည်းများ၏ ပြောဆိုမှုများအားလုံးကိုလည်း အခြေခံထားပါသည်။
         </p>
-    </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 mt-8">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2023 သတင်း Website. All Rights Reserved.</p>
-        </div>
-    </footer>
+        <h3 class="font-semibold">နိုင်ငံတကာ အားကစားနယ်ပယ်တွင် ထူးခြားမှုများ</h3>
+        <ol class="list-decimal list-inside">
+          <li>
+            <strong>၂၀၂၃ ရဲ့ ရှန်ပီယံလိဂ် (Champions League) အပြိုင်အဆိုင် အခြေအနေများ</strong><br>
+            ယူရိုပီယံဖလား ပြိုင်ပွဲကြီးတွင် သာသနာ့ကျောင်းအထက်တန်းလို့ခေါ်လို့ရသော 
+            ရည်ညွှန်းထိုက်ကစားပွဲတွေ ဖြစ်နေဆဲဖြစ်သည်။ 
+            အဓိကအီတလီကလပ်များဖြစ်တဲ့ Napoli နှင့် Inter Milan တို့၏ ပြိုင်ပွဲများမှာ 
+            ပိုမိုစိတ်လှုပ်ရှားဖွယ် ဖြစ်လာသကဲ့သို့ 
+            အင်္ဂလန်နိုင်ငံမှ Manchester City အဖွဲ့ရဲ့ စွမ်းဆောင်မှုသည် ယခင်နှစ်ဒီဇင်ဘာလမှစပြီး 
+            ထိန်းထားနိုင်မည့်အခြေအနေများရှိနေဆဲဖြစ်ပါသည်။ 
+            Lionel Messi နှင့် Cristiano Ronaldo တို့ကဲ့သို့သော ကစားသမားကြဲကြာကွာခြားမှုများကြားမှ 
+            အသစ်ရောက်လာတဲ့ ဟာလန် (Erling Haaland) က ကမ္ဘာ့အကောင်းဆုံးအဖြစ်
+            သတ်မှတ်ခံရနိုင်ဖွယ် ရှိနေသည်။
+          </li>
+          <li>
+            <strong>Rugby World Cup ၂၀၂၃</strong><br>
+            ချန်ပီယံဆုတွေအတွက် ယှဉ်ပြိုင်နေသူများတွင် 
+            ရှေးခေတ်ထောင်တည်မှုရှိရာ နယူးဇီလန် (All Blacks) နှင့် ဖရန့်ကုမ္မဏီတို့၏ 
+            အင်အားတူယှဉ်ပြိုင်မှုများ၏ ပင်ကိုယ်ထောင်မှုကြားမှ 
+            ပရိတ်သတ်များအတွက် အခြေပြုပွဲများ စိတ်ဝင်စားမှုများစွာဖြင့် စိုးမိုးခဲ့သည်။ 
+            ယှဉ်ပြိုင်ဆု၏ နောက်ဆုံးသွားရန် ရင်ဆိုင်ရန် မည်သူများနှင့် ဘယ်အရာများကိုဆုံကြုံရမည်ကို 
+            အတိအကျ ပြည့်စုံစွာ ကမ္ဘာ့အားကစားပရိတ်သတ်များစောင့်ကြည့်နေသည်။
+          </li>
+        </ol>
+
+        <h3 class="font-semibold">မြန်မာနိုင်ငံ အားကစားနယ်ပယ်၏ ဖွံ့ဖြိုးမှုများ</h3>
+        <ol class="list-decimal list-inside">
+          <li>
+            <strong>မြန်မာ့ ဘောလုံးလောက ဖွံ့ဖြိုးမှုများ</strong><br>
+            မြန်မာနိုင်ငံဘောလုံးအသင်းကြီးများဖြစ်တဲ့ Yangon United ၊ Shan United 
+            တို့ရဲ့ ၂၀၂၃ ပြိုင်ပွဲရာသီအပေါ်မှာ နောက်ဆုံးအခြေဖြစ်မှုများကို မိဘပြိုင်ပွဲအနေနဲ့ 
+            League နိုင်ငံရေးထောက်ပံလှုပ်ရှားမှုများအားတစ်ဦးဦးမှ အလေးပြုကြသည်။
+          </li>
+          <li>
+            <strong>တက်ရောက်လာသော မြန်မာ အားကစားသမားများ</strong><br>
+            ယခင်နှစ်က အသစ်တိုးတက်လာသောပုံတွေအရ ရုပ်သိန်း 
+            အောင်နိုင်ဘွဲ့ရတဲ့ တိုက်ပွဲအားကစားသမားများကသာမက 
+            MBF All-Stars ကြီးများတွင် အသင်းဝင်ထားသော 
+            မြန်မာနိုင်ငံဘက်စုံအားကစားသမားများပေါ်တွင် 
+            သီးခြားစီးပွားရေးနှင့် နိုင်ငံတကာအခြေပြုရေးရာ R&D များဆောင်ရွက်နေသည်။
+          </li>
+        </ol>
+
+        <h3 class="font-semibold">နောက်ဆုံးချုပ်</h3>
+        <p>
+          အားကစားကဏ္ဍမှာ ယှဉ်ပြိုင်မှုများနှင့် ဖွံ့ဖြိုးမှုလုပ်ငန်းများက 
+          မြန်မာ့လူငယ်အားကစားဖွံဖြိုးရေးအတွက် အလွန်ကြီးမားသော အရေးပါမှုရှိရာ 
+          မြန်မာနိုင်ငံတွင်လည်း အားကစားစိတ်ဝင်စားမှု ပိုမိုတိုးမြှင့်လာရန် လိုအပ်သေးသည်။
+          ဤသတင်းသည် နောက်ဆုံးရ အားကစားနယ်ပယ်အခြေအနေများကို 
+          အကျဉ်းချုပ်သတင်းပေးရန် ရည်ရွယ်သည်။
+        </p>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 mt-8 py-6">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-gray-500">&copy; ၂၀၂၃ နောက်ဆုံးရ အားကစားသတင်း | Designed with ❤️</p>
+    </div>
+  </footer>
 
 </body>
 </html>
