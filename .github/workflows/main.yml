@@ -1,28 +1,28 @@
 name: MYANMAR GLOBAL INSIGHT Automation
 on:
   repository_dispatch:
-    types: [update_news] # Telegram မှ လှမ်းခေါ်မည့် Signal
-
-permissions:
-  contents: write
-
+    types: [update_news]
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install
+      - name: Install dependencies
+        run: npm install @azure-rest/ai-inference @azure/core-auth
       - name: Build Website with GPT-5
         run: node agent.js
         env:
           GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
           NEWS_HEADLINE: ${{ github.event.client_payload.headline }}
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+      - name: Commit and Push index.html
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git commit -m "Update news content" || exit 0
+          git push origin main
