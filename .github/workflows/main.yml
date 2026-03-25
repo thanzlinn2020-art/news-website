@@ -19,12 +19,13 @@ jobs:
           node-version: '20'
           
       - name: Install dependencies
-        run: npm install @azure-rest/ai-inference @azure/core-auth
+        run: npm install @azure-rest/ai-inference @azure/core-auth axios
         
-      - name: Build Website with GPT-5
+      - name: Build Website with DeepSeek
         run: node agent.js
         env:
           GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
+          SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
           NEWS_HEADLINE: ${{ github.event.client_payload.headline || 'ယနေ့ နောက်ဆုံးရ သတင်းများ' }}
           
       - name: Commit and Push index.html
@@ -32,5 +33,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add index.html
-          git commit -m "Update news content" || exit 0
+          git commit -m "Update content with DeepSeek" || exit 0
           git push origin main
