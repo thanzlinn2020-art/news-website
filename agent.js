@@ -1,68 +1,71 @@
 import ModelClient from "@azure-rest/ai-inference";
 import { AzureKeyCredential } from "@azure/core-auth";
 import fs from "fs";
+import axios from "axios";
 
-// AI Endpoint Setting
 const token = process.env["GH_MODELS_TOKEN"];
+const serperKey = process.env["SERPER_API_KEY"];
 const client = new ModelClient("https://models.inference.ai.azure.com", new AzureKeyCredential(token));
-const modelName = "gpt-4o"; 
+const modelName = "DeepSeek-R1"; // မြန်မာစာနဲ့ Logic ပိုကောင်းဖို့ DeepSeek သုံးပါမယ်
 
-async function askAI(messages) {
-  try {
-    const response = await client.path("/chat/completions").post({
-      body: { messages, model: modelName }
-    });
-    return response.body.choices[0].message.content;
-  } catch (err) {
-    console.error("AI Error:", err.message);
-    return null;
-  }
+async function askAI(role, task) {
+  const response = await client.path("/chat/completions").post({
+    body: {
+      messages: [
+        { role: "system", content: role + " အရေးကြီးချက်: မြန်မာစာသတ်ပုံကို ယူနီကုဒ်စနစ်ဖြင့် အမှန်ကန်ဆုံး ရေးသားပါ။" },
+        { role: "user", content: task }
+      ],
+      model: modelName
+    }
+  });
+  return response.body.choices[0].message.content;
 }
 
-async function runManusAgent() {
-  const userHeadline = process.env["NEWS_HEADLINE"] || "ရန်ကုန် နောက်ဆုံးရသတင်း";
-  console.log(`\n🤖 MANUS AGENT (Mini) STARTED for: ${userHeadline}\n`);
-
-  // --- အဆင့် (၁): စီစဉ်ခြင်း (Planning) ---
-  console.log("📝 STEP 1: Planning...");
-  const planningPrompt = [
-    { role: "system", content: "You are a planning assistant. Break down the task into steps." },
-    { role: "user", content: `I want to build a professional Burmese news website about: "${userHeadline}". Create a step-by-step plan.` }
-  ];
-  const plan = await askAI(planningPrompt);
-  console.log("--- Plan ---\n", plan, "\n");
-
-  // --- အဆင့် (၂): အချက်အလက်ရှာဖွေခြင်း (Searching/Information Gathering) ---
-  // (မှတ်ချက်: Tavily API မချိတ်ရသေးလို့ AI ရဲ့ Knowledge ပေါ်ပဲ အခြေခံပါမယ်)
-  console.log("🔍 STEP 2: Gathering Information (Internal Knowledge)...");
-  const gatheringPrompt = [
-    { role: "system", content: "You are a senior news researcher. Write detailed, long-form news articles in Burmese." },
-    { role: "user", content: `Write a 500+ word detailed news report in Burmese about "${userHeadline}". Based on your knowledge up to late 2023.` }
-  ];
-  const detailedNews = await askAI(gatheringPrompt);
-  console.log("--- Content Generated (Truncated) ---\n", detailedNews.substring(0, 200) + "...\n");
-
-  // --- အဆင့် (၃): Code ရေးခြင်း (Coding) ---
-  console.log("💻 STEP 3: Coding (Writing index.html)...");
-  const codingPrompt = [
-    { role: "system", content: "You are a expert web developer. Use Tailwind CSS CDN for modern design. Use standard, white background theme. Response ONLY with full HTML code." },
-    { role: "user", content: `Build a clean news website with a header, footer, and main section about "${userHeadline}". Integrate the following article content here: \n\n ${detailedNews}` }
-  ];
-  let htmlContent = await askAI(codingPrompt);
-  htmlContent = htmlContent.replace(/```html|```/g, "").trim();
-
-  // --- အဆင့် (၄): စစ်ဆေးခြင်းနှင့် အမှားပြင်ခြင်း (Reflection & Self-Correction) ---
-  console.log("🧐 STEP 4: Reviewing and Self-Correction...");
-  // HTML code ကောင်းမကောင်းကို AI ကိုယ်တိုင် ပြန်စစ်ခိုင်းခြင်း
-  const reviewPrompt = [
-    { role: "system", content: "You are a code reviewer. Check the HTML for bugs, missing tags, or non-Tailwind syntax. Suggest minimal, critical fixes. Response ONLY with the improved full HTML code." },
-    { role: "user", content: `Review this HTML code and improve it. Ensure Burmese fonts are rendered correctly. \n\n ${htmlContent}` }
-  ];
-  const finalHtml = await askAI(reviewPrompt);
-  
-  // ဖိုင်သိမ်းခြင်း
-  fs.writeFileSync("index.html", finalHtml.replace(/```html|```/g, "").trim());
-  console.log("\n✅ SUCCESS: index.html has been generated with Self-Thinking!\n");
+async function googleSearch(query) {
+  console.log(`🌐 Agent is browsing the web for: ${query}...`);
+  const data = JSON.stringify({ "q": query, "gl": "mm", "hl": "my" });
+  const config = {
+    method: 'post',
+    url: 'https://google.serper.dev/search',
+    headers: { 'X-API-KEY': serperKey, 'Content-Type': 'application/json' },
+    data: data
+  };
+  const response = await axios(config);
+  return response.data.organic.map(item => `${item.title}: ${item.snippet}`).join("\n");
 }
 
-runManusAgent();
+async function runUniversalAgent() {
+  // Telegram ကနေ ပို့လိုက်တဲ့ "ဘာဆောက်ပေးရမလဲ" ဆိုတဲ့ ခိုင်းစေချက်
+  const userRequirement = process.env["NEWS_HEADLINE"] || "ရွှေဈေးတွက်ချက်ပေးတဲ့ Web App";
+  console.log(`🚀 UNIVERSAL AGENT ACTIVATED: Building "${userRequirement}"\n`);
+
+  // --- အဆင့် (၁): Research & Planning ---
+  // Agent က ဒီ App မှာ ဘာတွေပါသင့်လဲ Google မှာ ရှာပြီး Plan ဆွဲပါမယ်
+  const searchResults = await googleSearch(`best features for ${userRequirement}`);
+  const plan = await askAI(
+    "You are a Senior Product Manager & Architect.",
+    `User wants to build: ${userRequirement}. Based on these references: \n${searchResults}\n Create a detailed UI/UX plan and features list in Burmese.`
+  );
+  console.log("📝 Plan Created:", plan.substring(0, 100) + "...");
+
+  // --- အဆင့် (၂): Advanced Coding ---
+  // Plan အတိုင်း HTML/Tailwind/JavaScript code တွေ ရေးပါမယ်
+  const code = await askAI(
+    "You are an Expert Full-stack Developer (Devin/Replit style). Response ONLY with full HTML/JS/CSS code in one file.",
+    `Build a functional and beautiful Web App/Website for: "${userRequirement}". 
+     Use the following plan: ${plan}. 
+     Ensure it is fully interactive with JavaScript if needed. 
+     Use Tailwind CSS for a modern Look. All text should be in Burmese.`
+  );
+
+  // --- အဆင့် (၃): Self-Correction & Polishing ---
+  const finalCode = await askAI(
+    "You are a Quality Assurance Engineer. Review the code for bugs and improve the Burmese font rendering.",
+    `Check this code for errors and ensure the UI is perfect: \n\n${code}`
+  );
+
+  fs.writeFileSync("index.html", finalCode.replace(/```html|```/g, "").trim());
+  console.log(`\n✅ MISSION ACCOMPLISHED: "${userRequirement}" is now live!`);
+}
+
+runUniversalAgent();
