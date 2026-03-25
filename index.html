@@ -3,51 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ရန်ကုန်မြို့သတင်း</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>မြန်မာ့ရွှေဈေးနှင့် ကမ္ဘာ့စီးပွားရေး - သတင်း Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&display=swap');
+        body {
+            font-family: 'Noto Sans Myanmar', sans-serif;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <header class="bg-blue-800 text-white p-4">
-        <h1 class="text-3xl font-bold">ရန်ကုန်မြို့၏ ယနေ့ သတင်း</h1>
-    </header>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
 
-    <div class="container mx-auto p-4">
-        <div class="bg-white shadow-md rounded-lg p-4 mb-6">
-            <h2 class="text-2xl font-bold mb-3">ရွှေဈေးနှင့်မိုးလေဝသ သတင်း</h2>
-            <p class="text-gray-700">ယနေ့ မိုးလေဝသနှင့် ရွှေဈေးနှုန်းအကြောင်း အချက်အလက်များ:</p>
-            <ul class="list-disc ml-5 mt-2">
-                <li>ရွှေဈေးနှုန်း: 2,100,000 ကျပ်/အောင်</li>
-                <li>မိုးလေဝသ: မိုးရေ ၃၀%၊ အပူချိန် ၃၀°C</li>
+    <!-- USD and Gold Price Ticker -->
+    <div class="bg-blue-700 text-white py-2">
+        <marquee behavior="scroll" direction="left">
+            USD: 2,100 ကျပ် | ရွှေစျေး: ၁ သိန်း ၃ သောင်း ၅ ထောင် ၀က်
+        </marquee>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gray-800 text-white">
+        <div class="container mx-auto flex justify-between items-center py-4">
+            <a href="#" class="text-2xl font-bold">သတင်း Website</a>
+            <ul class="flex space-x-6">
+                <li><a href="#" class="hover:underline">ပင်မစာမျက်နှာ</a></li>
+                <li><a href="#" class="hover:underline">အားကစား</a></li>
+                <li><a href="#" class="hover:underline">နည်းပညာ</a></li>
+                <li><a href="#" class="hover:underline">စီးပွားရေး</a></li>
             </ul>
         </div>
-        
-        <div class="bg-white shadow-md rounded-lg p-4 mb-6">
-            <h3 class="text-xl font-bold mb-3">နောက်ဆုံးရရှင်းလင်းချက်များ</h3>
-            <p class="text-gray-700">ယနေ့ ရန်ကုန်မြို့တွင် ရွှေရေဈေးနှင့် မိုးလေဝသပေါင်းစပ် တင်ပြချက်များပါဝင်သည်။</p>
-            <img src="https://source.unsplash.com/featured/?gold" alt="ရွှေဈေး" class="w-full h-72 object-cover rounded-lg mt-3">
-        </div>
+    </nav>
 
-        <div class="bg-white shadow-md rounded-lg p-4 mb-6">
-            <h3 class="text-xl font-bold mb-3">ငွေနှုန်းများ</h3>
-            <table class="min-w-full table-auto border-collapse">
-                <thead>
-                    <tr>
-                        <th class="border px-4 py-2">ငွေသား</th>
-                        <th class="border px-4 py-2">နှုန်း</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="border px-4 py-2">USD</td>
-                        <td class="border px-4 py-2">2,050 ကျပ်</td>
-                    </tr>
-                    <tr>
-                        <td class="border px-4 py-2">THB</td>
-                        <td class="border px-4 py-2">62 ကျပ်</td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- Main Content -->
+    <main class="container mx-auto mt-8 px-4">
+        <!-- Article Image -->
+        <img src="https://images.unsplash.com/photo-1585829365234-78d9b8129f50?q=80&w=800" alt="Gold and Economy" class="w-full h-96 object-cover rounded-xl mb-6">
+
+        <!-- Article Title -->
+        <h1 class="text-3xl font-bold mb-4">မြန်မာ့ရွှေဈေးနှင့် ကမ္ဘာ့စီးပွားရေး နောက်ဆုံးရ အခြေအနေ</h1>
+
+        <!-- Article Content -->
+        <p class="mb-4">
+            ယနေ့ မြန်မာနိုင်ငံ၏ ရွှေဈေးသည် စျေးကွက်အတွင်းမှာ အတက်အကျအနည်းငယ် ရှိနေသော်လည်း ကျွမ်းကျင်သူများက ပြောကြားသည့်အတိုင်း
+            မြန်မာ့စီးပွားရေးအပေါ်တွင် ထိခိုက်မှုသည် ပိုမိုကြီးမားလာမည်ဟု ခန့်မှန်းရသည်။ ယခုအခါ ဇန်နဝါရီလတွင် အနည်းဆုံး တစ်လုံးဈေးသည်
+            ၁ သိန်း ၃ သောင်း ၅ ထောင်ကျော်ရှိနေပြီး၊ အင်အားကြီးမားသော ကမ္ဘာ့စီးပွားရေး ဖိအားများပါဝင်လာနေကြောင်းတွေ့ရသည်။
+        </p>
+        <p class="mb-4">
+            ဒေသတွင်းနဲ့ နိုင်ငံတကာအဆင့်များအတွင်း အခြေအနေသည် ရည်မှန်းချက်များကို ပြန်လည်ပြုလုပ်ဖို့လိုအပ်နေပါသည်။ ရှမ်းပြည် 
+            အခြေစိုက်ရွှေထုတ်လုပ်ရေးအဖွဲ့၌လည်း ထုတ်လုပ်မှုလျော့နည်းမှုများကို သတိထားမိပါသည်။ ထုတ်လုပ်မှုကုန်ကျစရိတ်များနှင့် နိုင်ငံတော် 
+            အချို့က သတ်မှတ်အသိမှတ်ပြုထားသော အခွန်လိုအပ်ချက်များကြောင့် ရွှေရောင်းရေးအခြေအနေ ယခုလိုအခြေနေဖြစ်လာခြင်းဖြစ်ပါတယ်။
+        </p>
+        <p>
+            ကမ္ဘာ့စီးပွားရေးနှင့်ပတ်သက်လျှင် အခြေအနေမှာ ပိုမိုရှုပ်ထွေးလာခဲ့သည်။ အမေရိကန်နှင့် နိုင်ငံအချို့သုံးစွဲသည့် အမေရိကန်ဒေါ်လာစနစ်
+            ခိုမ်းခိုန့်ရှိပြီး ဖြေရှင်းရန်လိုအပ်နေကာ ငွေကြေးအဖွဲ့အစည်း (Fed) မှာနှင့် တိုင်းပြည်များကိုအရင်းအမြစ်ပိုမိုလိုအပ်လာပါတယ်။ 
+            ယခုအချိန်တွင် စတင်ထွေထွက်နေသော အတိုးနှုန်းမြင့်တက်မှုကို ပိုင်းပိုင်း သက်ဆိုင်ကာ ကျဉ်းကျဉ်းစီးပိုင်းရုံတင်ဖြစိမ့်မှုများကို
+            အလေးထားစဉ်းစားတိုင်းဖြစ်စေတော့မည်။
+        </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2023 သတင်း Website. All Rights Reserved.</p>
         </div>
-    </div>
+    </footer>
+
 </body>
 </html>
