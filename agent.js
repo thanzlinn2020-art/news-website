@@ -1,32 +1,33 @@
-import ModelClient from "@azure-rest/ai-inference";
+import { ModelClient } from "@azure-rest/ai-inference";
 import { AzureKeyCredential } from "@azure/core-auth";
 import fs from "fs";
 
-const token = process.env["GH_MODELS_TOKEN"];
-// Telegram မှ ပို့လိုက်သော သတင်းခေါင်းစဉ်ကို ရယူခြင်း
-const headline = process.env["NEWS_HEADLINE"] || "နောက်ဆုံးရ မြန်မာ့သတင်းများ";
-
 async function buildWebsite() {
+  const token = process.env["GH_MODELS_TOKEN"];
+  const headline = process.env["NEWS_HEADLINE"] || "နောက်ဆုံးရ မြန်မာသတင်းများ";
   const client = new ModelClient("https://models.inference.ai.azure.com", new AzureKeyCredential(token));
 
   try {
     const response = await client.path("/chat/completions").post({
       body: {
         messages: [
-          { role: "system", content: "သင်သည် BBC News ပုံစံ MYANMAR GLOBAL INSIGHT အတွက် သတင်းရေးပေးရမည်။ HTML/Tailwind CSS သာ ထုတ်ပေးပါ။" },
-          { role: "user", content: `ယခုသတင်းခေါင်းစဉ်ဖြင့် Website ကို Update လုပ်ပေးပါ: ${headline}` }
+          { role: "system", content: "You are a professional BBC News editor. Response ONLY with valid HTML/CSS code." },
+          { role: "user", content: `Create a professional news website about: ${headline}. Use Burmese language.` }
         ],
-        model: "openai/gpt-5"
+        model: "gpt-4o" // model နာမည်ကို gpt-4o လို့ ခဏပြောင်းကြည့်ရအောင်
       }
     });
 
-    if (response && response.body && response.body.choices) {
-      const htmlContent = response.body.choices[0].message.content.replace(/```html|```/g, "").trim();
+    if (response.body && response.body.choices) {
+      let htmlContent = response.body.choices[0].message.content;
+      // HTML Tag တွေပဲ ကျန်အောင် သန့်စင်ခြင်း
+      htmlContent = htmlContent.replace(/```html|```/g, "").trim();
+      
       fs.writeFileSync("index.html", htmlContent);
-      console.log("Website Updated Successfully with headline: " + headline);
+      console.log("Website Updated Successfully!");
     }
   } catch (err) {
-    console.error("AI Build Error:", err.message);
+    console.error("Error:", err);
   }
 }
 
