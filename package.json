@@ -1,7 +1,12 @@
 {
+  "name": "news-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "agent.js",
   "type": "module",
   "dependencies": {
     "@azure-rest/ai-inference": "latest",
-    "@azure/core-auth": "latest"
+    "@azure/core-auth": "latest",
+    "axios": "latest"
   }
 }
