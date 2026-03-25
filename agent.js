@@ -1,4 +1,16 @@
-messages: [
+import ModelClient from "@azure-rest/ai-inference";
+import { AzureKeyCredential } from "@azure/core-auth";
+import fs from "fs";
+
+async function buildWebsite() {
+  const token = process.env["GH_MODELS_TOKEN"];
+  const headline = process.env["NEWS_HEADLINE"] || "နောက်ဆုံးရ မြန်မာသတင်းများ";
+  const client = new ModelClient("https://models.inference.ai.azure.com", new AzureKeyCredential(token));
+
+  try {
+    const response = await client.path("/chat/completions").post({
+      body: {
+        messages: [
           { 
             role: "system", 
             content: `သင်သည် BBC News ကဲ့သို့သော ကမ္ဘာ့အဆင့်မီ သတင်းအယ်ဒီတာတစ်ဦးဖြစ်သည်။ 
@@ -15,3 +27,19 @@ messages: [
           },
           { role: "user", content: `Create a professional, multi-category news website about: ${headline}. Ensure live-looking gold/currency rates are at the top.` }
         ],
+        model: "openai/gpt-5"
+      }
+    });
+
+    if (response.body && response.body.choices) {
+      let htmlContent = response.body.choices[0].message.content;
+      htmlContent = htmlContent.replace(/```html|```/g, "").trim();
+      fs.writeFileSync("index.html", htmlContent);
+      console.log("Website Updated Successfully!");
+    }
+  } catch (err) {
+    console.error("AI Build Error:", err.message);
+  }
+}
+
+buildWebsite();
