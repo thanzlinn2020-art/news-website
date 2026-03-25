@@ -35,10 +35,11 @@ async function buildWebsite() {
       let htmlContent = response.body.choices[0].message.content;
       htmlContent = htmlContent.replace(/```html|```/g, "").trim();
       fs.writeFileSync("index.html", htmlContent);
-      console.log("Website Updated Successfully!");
+      console.log("SUCCESS: index.html has been created!");
     }
   } catch (err) {
     console.error("AI Build Error:", err.message);
+    process.exit(1);
   }
 }
 
