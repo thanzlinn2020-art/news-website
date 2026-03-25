@@ -2,24 +2,41 @@ import ModelClient from "@azure-rest/ai-inference";
 import { AzureKeyCredential } from "@azure/core-auth";
 import fs from "fs";
 
+// Token နှင့် Endpoint သတ်မှတ်ခြင်း
 const token = process.env["GH_MODELS_TOKEN"];
-const client = new ModelClient("https://models.inference.ai.azure.com", new AzureKeyCredential(token));
+const endpoint = "https://models.inference.ai.azure.com";
 
 async function buildWebsite() {
-  const response = await client.path("/chat/completions").post({
-    body: {
-      messages: [
-        { role: "system", content: "သင်သည် ကျွမ်းကျင်သော Web Developer ဖြစ်သည်။ သတင်း Website တစ်ခုအတွက် HTML code ကိုသာ သီးသန့် ထုတ်ပေးပါ။" },
-        { role: "user", content: "မြန်မာသတင်းများအတွက် ခေတ်မီသော News Portal တစ်ခုကို Tailwind CSS သုံးပြီး HTML file တစ်ခုတည်းဖြင့် ရေးပေးပါ။" }
-      ],
-      model: "openai/gpt-5"
-    }
-  });
+  const client = new ModelClient(endpoint, new AzureKeyCredential(token));
 
-  const htmlContent = response.body.choices[0].message.content;
-  // Code ထဲက HTML စာသားတွေကို index.html အဖြစ် သိမ်းဆည်းခြင်း
-  fs.writeFileSync("index.html", htmlContent);
-  console.log("Website Created Successfully!");
+  try {
+    console.log("GPT-5 is building your news website... please wait.");
+    
+    const response = await client.path("/chat/completions").post({
+      body: {
+        messages: [
+          { role: "system", content: "သင်သည် ကျွမ်းကျင်သော Full-stack Web Developer တစ်ဦးဖြစ်သည်။ HTML, Tailwind CSS code ကိုသာ သီးသန့်ထုတ်ပေးပါ။" },
+          { role: "user", content: "မြန်မာသတင်း Media Website တစ်ခုအတွက် ဆွဲဆောင်မှုရှိသော Landing Page HTML code တစ်ခုကို ရေးပေးပါ။" }
+        ],
+        model: "openai/gpt-5" // ဓာတ်ပုံထဲမှာပါတဲ့ model အတိုင်း အတိအကျ သုံးထားပါတယ်
+      }
+    });
+
+    // Response ကို သေချာစစ်ဆေးခြင်း
+    if (response && response.body && response.body.choices && response.body.choices.length > 0) {
+      const htmlContent = response.body.choices[0].message.content;
+      
+      // Markdown စာသားများပါလာပါက ဖယ်ရှားခြင်း
+      const cleanHtml = htmlContent.replace(/```html|```/g, "").trim();
+      
+      fs.writeFileSync("index.html", cleanHtml);
+      console.log("Success! GPT-5 has created 'index.html'.");
+    } else {
+      console.log("AI Error Data:", JSON.stringify(response.body, null, 2));
+    }
+  } catch (err) {
+    console.error("Connection Error:", err.message);
+  }
 }
 
 buildWebsite();
