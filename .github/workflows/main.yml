@@ -2,23 +2,31 @@ name: MYANMAR GLOBAL INSIGHT Automation
 on:
   repository_dispatch:
     types: [update_news]
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          
       - name: Install dependencies
         run: npm install @azure-rest/ai-inference @azure/core-auth
+        
       - name: Build Website with GPT-5
         run: node agent.js
         env:
           GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
-          NEWS_HEADLINE: ${{ github.event.client_payload.headline }}
+          NEWS_HEADLINE: ${{ github.event.client_payload.headline || 'ယနေ့ နောက်ဆုံးရ သတင်းများ' }}
+          
       - name: Commit and Push index.html
         run: |
           git config --local user.email "action@github.com"
