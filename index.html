@@ -1,308 +1,163 @@
-Here's a professional news website for "MYANMAR GLOBAL INSIGHT" with Tailwind CSS and interactive JavaScript:
+Below is an implementation of the News Web App as per your requirements. This includes a Home Page that displays news with images from Unsplash, an Admin Dashboard accessible via a modal to add/edit/delete news, and Tailwind CSS for modern styling. News data is stored in `localStorage` using JavaScript.
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYANMAR GLOBAL INSIGHT - မြန်မာနှင့်နိုင်ငံတကာသတင်း</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#1a365d',
-                        secondary: '#2c5282',
-                        accent: '#4299e1',
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>News Web App</title>
 </head>
-<body class="bg-gray-100 font-sans">
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl mr-3">MGI</div>
-                    <h1 class="text-2xl font-bold text-primary">MYANMAR GLOBAL INSIGHT</h1>
-                </div>
-                <div class="hidden md:flex space-x-6">
-                    <a href="#" class="text-gray-700 hover:text-accent font-medium">ပင်မစာမျက်နှာ</a>
-                    <a href="#" class="text-gray-700 hover:text-accent font-medium">နိုင်ငံတကာသတင်း</a>
-                    <a href="#" class="text-gray-700 hover:text-accent font-medium">အားကစား</a>
-                    <a href="#" class="text-gray-700 hover:text-accent font-medium">နည်းပညာ</a>
-                    <a href="#" class="text-gray-700 hover:text-accent font-medium">စီးပွားရေး</a>
-                </div>
-                <button class="md:hidden text-gray-700">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </div>
-    </header>
+<body class="bg-gray-100 text-gray-800 font-sans">
 
-    <!-- Hero Section -->
-    <section class="bg-primary text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">မြန်မာနှင့်နိုင်ငံတကာ သတင်းများ</h2>
-                <p class="text-lg mb-6">နေ့စဥ်အချိန်နှင့်တပြေးညီ သတင်းများကို ဖတ်ရှုနိုင်ပါသည်</p>
-                <div class="relative max-w-md mx-auto">
-                    <input type="text" placeholder="သတင်းရှာဖွေရန်..." class="w-full py-2 px-4 rounded-full text-gray-800 focus:outline-none">
-                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-accent text-white py-1 px-4 rounded-full">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+  <!-- Header -->
+  <header class="bg-blue-500 p-4 shadow-md text-white">
+    <h1 class="text-2xl font-bold">သတင်းများ</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto my-6">
+    <section id="news-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Dynamic News will render here -->
     </section>
+  </main>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
-        <div class="flex flex-col lg:flex-row gap-8">
-            <!-- Left Column -->
-            <div class="lg:w-2/3">
-                <!-- Featured News -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-                    <img src="https://via.placeholder.com/800x450" alt="Featured News" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center text-sm text-gray-500 mb-2">
-                            <span class="bg-primary text-white px-2 py-1 rounded mr-2">အဓိကသတင်း</span>
-                            <span>အောက်တိုဘာ ၂၅၊ ၂၀၂၃</span>
-                        </div>
-                        <h2 class="text-2xl font-bold mb-3">ပြည်ပခရီးစဥ်များတွင် ပုဂ္ဂလိကလေကြောင်းလိုင်းများ၏ အခက်အခဲများ</h2>
-                        <p class="text-gray-700 mb-4">အခုရက်ပိုင်း ပြည်ပခရီးစဥ်တွေမှာ ပြည်တွင်းက ပုဂ္ဂလိကလေကြောင်းလိုင်းတွေကို အသုံးပြုတဲ့အခါ ဘယ်လိုအခြေအနေတွေကိုကြုံနေရလဲ၊ မှတ်ချက်ပေးမျှဝေပေးဖို့ ဖိတ်ခေါ်ပါတယ်။ သုံးပတ်ကြာရှိလာပြီဖြစ်တဲ့ အမေရိကန်-အစ္စရေး နဲ့ အီရန် စစ်ပွဲကြောင့် ကမ္ဘာတဝန်းနည်းတူ မြန်မာရဲ့ စက်သုံးဆီ‌စျေးကွက်...</p>
-                        <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
-                    </div>
-                </div>
+  <!-- Admin Dashboard Button -->
+  <footer class="fixed bottom-5 right-5">
+    <button id="open-admin" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg">
+      Admin Dashboard
+    </button>
+  </footer>
 
-                <!-- News Grid -->
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <!-- News Item 1 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="https://via.placeholder.com/400x225" alt="News" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <div class="text-sm text-gray-500 mb-2">နည်းပညာ | အောက်တိုဘာ ၂၄၊ ၂၀၂၃</div>
-                            <h3 class="text-xl font-bold mb-2">5G နည်းပညာ၏ အနာဂတ်နှင့် Vivo ၏ သုတေသန</h3>
-                            <p class="text-gray-700 mb-3">အပြည်ပြည်ဆိုင်ရာ ဆက်သွယ်ရေး အသင်းအဖွဲ့မှ 5G နှင့်ပတ်သက်သည့် အမြင်ကို မျှဝေပေးခဲ့သည့်နောက် မကြာမီမှာ Vivo ကလည်း သုတေသန ပြုလုပ်ခဲ့ခြင်း ဖြစ်ပါသည်။</p>
-                            <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
-                        </div>
-                    </div>
-
-                    <!-- News Item 2 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="https://via.placeholder.com/400x225" alt="News" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <div class="text-sm text-gray-500 mb-2">စီးပွားရေး | အောက်တိုဘာ ၂၃၊ ၂၀၂၃</div>
-                            <h3 class="text-xl font-bold mb-2">မြန်မာ့စီးပွားရေးတွင် နိုင်ငံခြားရင်းနှီးမြှုပ်နှံမှုများ</h3>
-                            <p class="text-gray-700 mb-3">ယခုနှစ်အတွင်း မြန်မာနိုင်ငံသို့ နိုင်ငံခြားရင်းနှီးမြှုပ်နှံမှုများ တိုးတက်လာမှုနှင့် စိန်ခေါ်မှုများ အကြောင်း သုံးသပ်ချက်။</p>
-                            <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
-                        </div>
-                    </div>
-
-                    <!-- News Item 3 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="https://via.placeholder.com/400x225" alt="News" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <div class="text-sm text-gray-500 mb-2">အားကစား | အောက်တိုဘာ ၂၂၊ ၂၀၂၃</div>
-                            <h3 class="text-xl font-bold mb-2">ကမ္ဘာ့ဖလားဘောလုံးပြိုင်ပွဲအတွက် မြန်မာ့အသင်း ပြင်ဆင်မှုများ</h3>
-                            <p class="text-gray-700 mb-3">လာမည့် ကမ္ဘာ့ဖလားဘောလုံးပြိုင်ပွဲအတွက် မြန်မာ့အသင်း၏ ပြင်ဆင်မှုများနှင့် မျှော်မှန်းချက်များ။</p>
-                            <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
-                        </div>
-                    </div>
-
-                    <!-- News Item 4 -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img src="https://via.placeholder.com/400x225" alt="News" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <div class="text-sm text-gray-500 mb-2">နိုင်ငံတကာ | အောက်တိုဘာ ၂၁၊ ၂၀၂၃</div>
-                            <h3 class="text-xl font-bold mb-2">အမေရိကန်-အစ္စရေး ဆက်ဆံရေးနှင့် ဒေသတွင်း အကျိုးသက်ရောက်မှုများ</h3>
-                            <p class="text-gray-700 mb-3">အမေရိကန်-အစ္စရေး နဲ့ အီရန် စစ်ပွဲကြောင့် ကမ္ဘာတဝန်းနည်းတူ မြန်မာရဲ့ စက်သုံးဆီ‌စျေးကွက် အပေါ် သက်ရောက်မှုများ။</p>
-                            <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pagination -->
-                <div class="flex justify-center space-x-2 mb-8">
-                    <button class="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">ရှေ့သို့</button>
-                    <button class="px-4 py-2 bg-primary text-white rounded">1</button>
-                    <button class="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">2</button>
-                    <button class="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">3</button>
-                    <button class="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">နောက်သို့</button>
-                </div>
-            </div>
-
-            <!-- Right Column -->
-            <div class="lg:w-1/3">
-                <!-- Categories -->
-                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">ကဏ္ဍများ</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>နိုင်ငံတကာသတင်း</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၂၄</span></a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>အားကစား</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၁၈</span></a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>နည်းပညာ</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၁၅</span></a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>စီးပွားရေး</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၁၂</span></a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>ကျန်းမာရေး</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၈</span></a></li>
-                    </ul>
-                </div>
-
-                <!-- Popular News -->
-                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">လူကြိုက်များသတင်း</h3>
-                    <div class="space-y-4">
-                        <div class="flex gap-3">
-                            <img src="https://via.placeholder.com/80x60" alt="Popular News" class="w-20 h-14 object-cover rounded">
-                            <div>
-                                <h4 class="font-medium text-sm hover:text-accent"><a href="#">မြန်မာ့စီးပွားရေးတွင် နိုင်ငံခြားရင်းနှီးမြှုပ်နှံမှုများ</a></h4>
-                                <p class="text-xs text-gray-500">အောက်တိုဘာ ၂၃၊ ၂၀၂၃</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-3">
-                            <img src="https://via.placeholder.com/80x60" alt="Popular News" class="w-20 h-14 object-cover rounded">
-                            <div>
-                                <h4 class="font-medium text-sm hover:text-accent"><a href="#">5G နည်းပညာ၏ အနာဂတ်နှင့် Vivo ၏ သုတေသန</a></h4>
-                                <p class="text-xs text-gray-500">အောက်တိုဘာ ၂၄၊ ၂၀၂၃</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-3">
-                            <img src="https://via.placeholder.com/80x60" alt="Popular News" class="w-20 h-14 object-cover rounded">
-                            <div>
-                                <h4 class="font-medium text-sm hover:text-accent"><a href="#">ပြည်ပခရီးစဥ်များတွင် လေကြောင်းလိုင်းများ၏ အခက်အခဲ</a></h4>
-                                <p class="text-xs text-gray-500">အောက်တိုဘာ ၂၅၊ ၂၀၂၃</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Newsletter -->
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">သတင်းလွှာစာရင်း</h3>
-                    <p class="text-gray-700 mb-4">နေ့စဥ်သတင်းများကို အချိန်နှင့်တပြေးညီ ရယူလိုပါက အောက်ပါဖောင်ကို ဖြည့်ပါ</p>
-                    <form class="space-y-3">
-                        <input type="text" placeholder="သင့်နာမည်" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-accent">
-                        <input type="email" placeholder="သင့်အီးမေးလ်" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-accent">
-                        <button type="submit" class="w-full bg-accent text-white py-2 rounded hover:bg-secondary transition">စာရင်းသွင်းမည်</button>
-                    </form>
-                </div>
-            </div>
+  <!-- Admin Dashboard Modal -->
+  <div id="admin-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
+    <div class="bg-white w-11/12 md:w-2/3 p-6 rounded-lg shadow-lg">
+      <h2 class="text-xl font-semibold mb-4">Admin Dashboard</h2>
+      <form id="news-form" class="mb-6">
+        <input type="hidden" id="news-id" />
+        <div class="mb-2">
+          <label for="news-title" class="block font-medium text-gray-700">ခေါင်းစဉ်:</label>
+          <input type="text" id="news-title" class="w-full border-gray-300 rounded-md p-2">
         </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-primary text-white py-8">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">MYANMAR GLOBAL INSIGHT</h3>
-                    <p class="text-gray-300">မြန်မာနှင့်နိုင်ငံတကာသတင်းများကို အချိန်နှင့်တပြေးညီ ဖော်ပြပေးနေသော သတင်းဝက်ဘ်ဆိုဒ်</p>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">လင့်ခ်များ</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-300 hover:text-white">ပင်မစာမျက်နှာ</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">ကျွန်ုပ်တို့အကြောင်း</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">ဆက်သွယ်ရန်</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">အကူအညီ</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">ဆက်သွယ်ရန်</h4>
-                    <ul class="space-y-2">
-                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> info@myanmarglobalinsight.com</li>
-                        <li class="flex items-center"><i class="fas fa-phone mr-2"></i> +95 9 123 456 789</li>
-                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> ရန်ကုန်မြို့၊ မြန်မာနိုင်ငံ</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">လူမှုကွန်ရက်</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-300">
-                <p>&copy; ၂၀၂၃ MYANMAR GLOBAL INSIGHT. မူပိုင်ခွင့်အားလုံးရှိသည်။</p>
-            </div>
+        <div class="mb-2">
+          <label for="news-description" class="block font-medium text-gray-700">ဖော်ပြချက်:</label>
+          <textarea id="news-description" class="w-full border-gray-300 rounded-md p-2"></textarea>
         </div>
-    </footer>
-
-    <!-- Mobile Menu (hidden by default) -->
-    <div id="mobileMenu" class="fixed inset-0 bg-white z-50 hidden">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex justify-between items-center mb-8">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg mr-3">MGI</div>
-                    <h1 class="text-xl font-bold text-primary">MYANMAR GLOBAL INSIGHT</h1>
-                </div>
-                <button id="closeMenu" class="text-gray-700">
-                    <i class="fas fa-times text-2xl"></i>
-                </button>
-            </div>
-            <nav class="space-y-4">
-                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">ပင်မစာမျက်နှာ</a>
-                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">နိုင်ငံတကာသတင်း</a>
-                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">အားကစား</a>
-                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">နည်းပညာ</a>
-                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">စီးပွားရေး</a>
-                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">ကျွန်ုပ်တို့အကြောင်း</a>
-                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">ဆက်သွယ်ရန်</a>
-            </nav>
-        </div>
+        <button type="submit" class="w-full bg-blue-500 text-white mt-4 py-2 rounded-md">သတင်းထည့်သွင်း</button>
+      </form>
+      <ul id="admin-news-list" class="divide-y">
+        <!-- Admin News List -->
+      </ul>
+      <button id="close-admin" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg">ဖွင့်နေသည့် ပုံစံပိတ်ရန်</button>
     </div>
+  </div>
 
-    <script>
-        // Mobile menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuButton = document.querySelector('header button');
-            const closeButton = document.getElementById('closeMenu');
-            const mobileMenu = document.getElementById('mobileMenu');
+  <script>
+    const newsListElement = document.getElementById("news-list");
+    const adminModal = document.getElementById("admin-modal");
+    const newsForm = document.getElementById("news-form");
+    const adminNewsList = document.getElementById("admin-news-list");
+    const openAdminBtn = document.getElementById("open-admin");
+    const closeAdminBtn = document.getElementById("close-admin");
 
-            menuButton.addEventListener('click', function() {
-                mobileMenu.classList.remove('hidden');
-            });
+    let newsData = JSON.parse(localStorage.getItem("newsData")) || [];
 
-            closeButton.addEventListener('click', function() {
-                mobileMenu.classList.add('hidden');
-            });
+    // Load Unsplash images for dummy news
+    const fetchUnsplashImage = () => {
+      return "https://source.unsplash.com/600x400/?news";
+    };
 
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('href');
-                    if (target === '#') return;
-                    
-                    document.querySelector(target).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script>
+    const renderNews = () => {
+      newsListElement.innerHTML = "";
+      newsData.forEach((news, index) => {
+        const newsItem = document.createElement("div");
+        newsItem.className = "bg-white p-4 rounded-lg shadow-lg";
+
+        newsItem.innerHTML = `
+          <img src="${fetchUnsplashImage()}" alt="News Image" class="w-full h-40 object-cover rounded-lg">
+          <h3 class="font-semibold text-xl mt-4">${news.title}</h3>
+          <p class="mt-2 text-gray-600">${news.description}</p>
+        `;
+        newsListElement.appendChild(newsItem);
+      });
+    };
+
+    const renderAdminNews = () => {
+      adminNewsList.innerHTML = "";
+      newsData.forEach((news, index) => {
+        const adminNewsItem = document.createElement("li");
+        adminNewsItem.className = "py-2 flex justify-between";
+
+        adminNewsItem.innerHTML = `
+          <div>
+            <h3 class="font-semibold">${news.title}</h3>
+            <p>${news.description}</p>
+          </div>
+          <div>
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded-md mr-2" onclick="editNews(${index})">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded-md" onclick="deleteNews(${index})">Delete</button>
+          </div>
+        `;
+        adminNewsList.appendChild(adminNewsItem);
+      });
+    };
+
+    const saveNews = () => {
+      localStorage.setItem("newsData", JSON.stringify(newsData));
+    };
+
+    const editNews = (index) => {
+      const news = newsData[index];
+      document.getElementById("news-id").value = index;
+      document.getElementById("news-title").value = news.title;
+      document.getElementById("news-description").value = news.description;
+    };
+
+    const deleteNews = (index) => {
+      newsData.splice(index, 1);
+      saveNews();
+      renderNews();
+      renderAdminNews();
+    };
+
+    newsForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newsId = document.getElementById("news-id").value;
+      const newsTitle = document.getElementById("news-title").value;
+      const newsDescription = document.getElementById("news-description").value;
+
+      if (newsId) {
+        newsData[newsId] = { title: newsTitle, description: newsDescription };
+      } else {
+        newsData.push({ title: newsTitle, description: newsDescription });
+      }
+
+      saveNews();
+      renderNews();
+      renderAdminNews();
+      newsForm.reset();
+    });
+
+    openAdminBtn.addEventListener("click", () => {
+      adminModal.classList.remove("hidden");
+    });
+
+    closeAdminBtn.addEventListener("click", () => {
+      adminModal.classList.add("hidden");
+    });
+
+    // Initial Load
+    renderNews();
+    renderAdminNews();
+  </script>
 </body>
 </html>
 
 
-This code creates a complete, responsive news website for MYANMAR GLOBAL INSIGHT with:
-
-1. Professional UI using Tailwind CSS
-2. Mobile-responsive design with hamburger menu
-3. Featured news section
-4. News grid layout
-5. Category sidebar
-6. Popular news section
-7. Newsletter subscription
-8. Footer with contact information
-9. Interactive JavaScript for mobile menu and smooth scrolling
-10. Proper Unicode Myanmar text throughout
-
-The design follows modern news website conventions while being fully localized for Myanmar readers. The color scheme uses blue tones which are common for professional news sites.
+### Features Highlight
+1. **Home Page**: Displays news articles with an Unsplash image (`fetchUnsplashImage()`).
+2. **Admin Dashboard**: Modal to manage items (add/edit/delete).
+3. **Persistency**: News data persists using `localStorage`.
+4. **Modern UI**: Tailwind CSS is used for styling.
+5. **Burmese Language**: UI labels and placeholders are localized into Burmese.
