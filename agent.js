@@ -18,40 +18,39 @@ async function askAI(role, task) {
   return response.body.choices[0].message.content;
 }
 
-async function buildProfessionalCMS() {
+async function buildBBCStyleCMS() {
   const userHeadline = process.env["NEWS_HEADLINE"] || "မြန်မာ့နောက်ဆုံးရသတင်းများ";
-  console.log(`🚀 Building Professional News Portal for: ${userHeadline}`);
+  console.log(`🚀 Building BBC Style Portal for: ${userHeadline}`);
 
-  // Google Search မှ တကယ့် သတင်းအချက်အလက်များကို ရယူခြင်း
-  const res = await axios.post('https://google.serper.dev/search', { q: userHeadline, gl: "mm" }, {
+  // Google Search မှ တကယ့် BBC News များ ရှာဖွေခြင်း
+  const res = await axios.post('https://google.serper.dev/search', { q: `site:bbc.com/burmese ${userHeadline}`, gl: "mm" }, {
     headers: { 'X-API-KEY': serperKey }
   });
-  const realNewsData = JSON.stringify(res.data.organic.slice(0, 6)); // သတင်း ၆ ပုဒ် ယူမယ်
+  const realNewsData = JSON.stringify(res.data.organic.slice(0, 8)); 
 
   const finalCode = await askAI(
-    "You are a Senior UI/UX & Full-stack Developer. You build professional, high-end news portals.",
-    `Build a professional Myanmar News Website (BBC/CNN Style).
+    "You are a Senior UI/UX Developer specializing in News Portals.",
+    `Build a BBC Burmese clone in one HTML file. 
      
-     DESIGN SPECIFICATIONS:
-     1. **Hero Section**: A big featured news with a high-quality image.
-     2. **News Grid**: A 3-column grid for other news items.
-     3. **Auto-Data**: Populate the website with this real data: ${realNewsData}.
-     4. **Admin Engine**:
-        - Use a floating 'Settings' icon or a discrete button to access the 'News Management' area.
-        - Must have an 'Edit' button on each news card when in Admin mode.
-        - Must have a 'Fetch New Stories' button that updates the list using AI.
-     5. **Persistence**: Save all edits in LocalStorage.
-     6. **Visuals**: Use Tailwind CSS, clean typography (Pyidaungsu font support), and real Unsplash news images.
-     7. **Language**: Pure Burmese.
+     DESIGN REQUIREMENTS:
+     1. **Header**: Red background with white 'NEWS' text and Burmese labels.
+     2. **Typography**: Use clean sans-serif fonts with clear spacing between lines.
+     3. **Layout**: One big 'Hero' story at the top, followed by a list of smaller news items with thumbnails on the side (like BBC mobile app).
+     4. **Auto-Data**: Populate with this data: ${realNewsData}.
+     5. **Admin Power**:
+        - Hide an 'Admin' access button at the bottom.
+        - Inside Admin: Ability to 'Edit' news content and 'Add' new items manually.
+        - Button 'Fetch Latest' to re-run AI search and update data.
+     6. **Functionality**: Fully interactive buttons with JavaScript and LocalStorage persistence.
      
-     Response ONLY with valid HTML code starting with <!DOCTYPE html>.`
+     Response ONLY with valid, complete HTML starting with <!DOCTYPE html>. No explanations.`
   );
 
   let cleanCode = finalCode.trim();
   if (cleanCode.startsWith("```")) cleanCode = cleanCode.replace(/^```html|```$/g, "").trim();
 
   fs.writeFileSync("index.html", cleanCode);
-  console.log("✅ Professional News Portal Build Complete!");
+  console.log("✅ BBC Style News Portal Build Complete!");
 }
 
-buildProfessionalCMS();
+buildBBCStyleCMS();
