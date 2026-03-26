@@ -6,7 +6,7 @@ import axios from "axios";
 const token = process.env["GH_MODELS_TOKEN"];
 const serperKey = process.env["SERPER_API_KEY"];
 const client = new ModelClient("https://models.inference.ai.azure.com", new AzureKeyCredential(token));
-const modelName = "DeepSeek-V3"; 
+const modelName = "DeepSeek-V3-0324"; 
 
 async function askAI(role, task) {
   try {
