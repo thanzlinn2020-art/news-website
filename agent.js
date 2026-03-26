@@ -8,47 +8,38 @@ const serperKey = process.env["SERPER_API_KEY"];
 const client = new ModelClient("https://models.inference.ai.azure.com", new AzureKeyCredential(token));
 const modelName = "gpt-4o"; 
 
-async function askAI(role, task) {
+async function startUniversalBuilder() {
+  const prompt = process.env["NEWS_HEADLINE"] || "Useful Web App";
+  console.log(`🤖 STARTING UNIVERSAL BUILDER: ${prompt}`);
+
+  // ၁။ Internet မှာ ဒီ App အလုပ်လုပ်ဖို့ လိုအပ်တဲ့ သင်္ချာနဲ့ Logic တွေ ရှာမယ်
+  const searchResults = await axios.post('https://google.serper.dev/search', { q: `functional logic for ${prompt} using javascript`, gl: "mm" }, {
+    headers: { 'X-API-KEY': serperKey }
+  }).then(res => JSON.stringify(res.data.organic));
+
+  // ၂။ AI က အဲ့ဒီ Logic တွေနဲ့ တကယ့် App ကို ရေးမယ်
   const response = await client.path("/chat/completions").post({
     body: {
-      messages: [{ role: "system", content: role }, { role: "user", content: task }],
+      messages: [
+        { role: "system", content: "You are an expert Software Engineer. You build FULLY FUNCTIONAL web apps. You output ONLY HTML/JS/CSS code. No talking." },
+        { role: "user", content: `Create a professional and working web application for: "${prompt}". 
+           Use these logic references: ${searchResults}. 
+           Rules: 
+           - Must have a high-end UI with Tailwind CSS. 
+           - Must have COMPLETE JavaScript logic for the app features.
+           - All text must be in Burmese. 
+           - Must be mobile-friendly.
+           Output ONLY the full HTML code.` }
+      ],
       model: modelName
     }
   });
-  return response.body.choices[0].message.content;
+
+  let finalCode = response.body.choices[0].message.content.trim();
+  if (finalCode.startsWith("```")) finalCode = finalCode.replace(/^```html|```$/g, "").trim();
+
+  fs.writeFileSync("index.html", finalCode);
+  console.log(`✅ ${prompt} IS READY!`);
 }
 
-async function startUniversalAgent() {
-  // Lynn ဆီက လာတဲ့ အမိန့် (ဥပမာ- "BMI App ဆောက်ပေးပါ" သို့မဟုတ် "ငွေလဲနှုန်းတွက်တဲ့ App")
-  const prompt = process.env["NEWS_HEADLINE"] || "Useful Web App";
-  console.log(`🚀 AGENT MISSION: Building "${prompt}"...`);
-
-  // ၁။ Internet မှာ ဒီ App အတွက် လိုအပ်တဲ့ Logic တွေ ရှာမယ်
-  const res = await axios.post('https://google.serper.dev/search', { q: `how to build ${prompt} web app functionality`, gl: "mm" }, {
-    headers: { 'X-API-KEY': serperKey }
-  });
-  const techSpecs = JSON.stringify(res.data.organic);
-
-  // ၂။ AI က အဲ့ဒီ အချက်အလက်တွေနဲ့ App တစ်ခုလုံးကို ရေးမယ်
-  const finalCode = await askAI(
-    "You are an Advanced AI Software Engineer like Devin or Replit Agent.",
-    `Task: Build a fully functional, professional-grade Web Application for: "${prompt}". 
-     
-     TECHNICAL SPECS:
-     - Use Tailwind CSS for a high-end UI/UX.
-     - Include all necessary JavaScript logic for the app to actually WORK (e.g., calculations, data handling).
-     - Responsive design (Mobile + Desktop).
-     - Language: Burmese (Labels and Instructions).
-     - Knowledge base: ${techSpecs}.
-     
-     Output ONLY pure HTML/CSS/JS code. No explanations. No markdown.`
-  );
-
-  let cleanCode = finalCode.trim();
-  if (cleanCode.startsWith("```")) cleanCode = cleanCode.replace(/^```html|```$/g, "").trim();
-
-  fs.writeFileSync("index.html", cleanCode);
-  console.log(`✅ SUCCESS: "${prompt}" has been built and deployed!`);
-}
-
-startUniversalAgent();
+startUniversalBuilder();
