@@ -1,164 +1,147 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Smart News CMS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>မြန်မာသတင်း | Professional News Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans Myanmar', sans-serif;
+        }
+
+        .admin-mode .admin-tools {
+            display: block;
+        }
+
+        .admin-tools {
+            display: none;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 text-gray-800">
 
-  <!-- Header -->
-  <header class="bg-blue-600 text-white p-4">
-    <h1 class="text-xl font-bold text-center">သတင်း မီဒီယာ စီမံခန့်ခွဲမှု</h1>
-  </header>
-
-  <!-- Main Content -->
-  <div class="container mx-auto p-4">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-lg font-bold">သတင်းစုစည်းမှု</h2>
-      <button id="fetch-latest" class="bg-green-500 text-white px-4 py-2 rounded">နောက်ဆုံးသတင်း ဆွဲယူမည်</button>
+    <!-- Floating Settings Icon -->
+    <div 
+        id="settings-icon" 
+        class="fixed bottom-4 right-4 bg-blue-600 text-white hover:bg-blue-800 rounded-full shadow-lg p-3 cursor-pointer z-50"
+        onclick="toggleAdminMode()"
+        title="Toggle Admin Mode">
+        ⚙️
     </div>
 
-    <!-- News List -->
-    <div id="news-list" class="grid gap-4">
-      <!-- News Items will populate here -->
+    <!-- Hero Section -->
+    <div id="hero-section" class="relative bg-gray-900 text-white">
+        <img 
+            src="https://source.unsplash.com/1200x600/?news,world" 
+            alt="Featured News Image" 
+            class="w-full h-72 object-cover opacity-70">
+        <div class="absolute inset-0 flex items-center justify-center p-6">
+            <div class="text-center">
+                <h1 
+                    id="hero-title" 
+                    class="text-3xl font-bold mb-4">ကြီးမားသော သတင်းနာမည်</h1>
+                <p 
+                    id="hero-snippet" 
+                    class="mb-6">Report from the latest breaking news happening in Myanmar and the world.</p>
+                <a 
+                    id="hero-link" 
+                    href="#"
+                    class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded">
+                    ဆက်လက်ဖတ်ရှုရန်
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- Editor Modal -->
-  <div id="editor-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white p-6 rounded-md w-full max-w-lg">
-      <h3 class="text-lg font-bold mb-4">သတင်းတည်းဖြတ်ခြင်း</h3>
-      <form id="edit-form">
-        <div class="mb-4">
-          <label class="block text-sm font-medium">ခေါင်းစဉ်</label>
-          <input type="text" id="edit-title" class="w-full border rounded p-2">
+    <!-- News Grid Section -->
+    <div class="container mx-auto py-8 px-4">
+        <h2 class="text-2xl font-bold mb-6">နောက်ထပ်သတင်းများ</h2>
+        <div id="news-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- News items will be populated dynamically -->
         </div>
-        <div class="mb-4">
-          <label class="block text-sm font-medium">အချက်အလက်</label>
-          <textarea id="edit-snippet" rows="4" class="w-full border rounded p-2"></textarea>
-        </div>
-        <div class="mb-4">
-          <label class="block text-sm font-medium">ဓာတ်ပုံ URL</label>
-          <input type="text" id="edit-image" class="w-full border rounded p-2">
-        </div>
-        <div class="flex justify-end">
-          <button type="button" id="cancel-edit" class="mr-2 bg-gray-300 px-4 py-2 rounded">ပယ်ဖျက်မည်</button>
-          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">သိမ်းဆည်းမည်</button>
-        </div>
-      </form>
     </div>
-  </div>
 
-  <script>
-    const defaultNews = [
-      {
-        "title": "BBC Burmese",
-        "link": "https://www.facebook.com/BBCnewsBurmese/photos/%E1%80%80%E1%80%99%E1%80%B9%E1%80%98%E1%80%AC%E1%80%B7%E1%80%A1%E1%80%95%E1%80%BB%E1%80%B1%E1%80%AC%E1%80%BA%E1%80%86%E1%80%AF%E1%80%B6%E1%80%B8%E1%80%94%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%84%E1%80%B6%E1%80%85%E1%80%AC%E1%80%9B%E1%80%84%E1%80%BA%E1%80%B8%E1%80%99%E1%80%BE%E1%80%AC-%E1%80%99%E1%80%BC%E1%80%94%E1%80%BA%E1%80%99%E1%80%AC%E1%80%80-%E1%80%A1%E1%80%86%E1%80%84%E1%80%B7%E1%80%BA-%E1%81%81%E1%81%82%E1%81%89-%E1%80%99%E1%80%BE%E1%80%AC%E1%80%9B%E1%80%BE%E1%80%AD-%E1%80%9E%E1%80%90%E1%80%84%E1%80%BA%E1%80%B8%E1%80%A1%E1%80%95%E1%80%BC%E1%80%8A%E1%80%B7%E1%80%BA%E1%80%A1%E1%80%85%E1%80%AF%E1%80%B6%E1%80%94%E1%80%B2%E1%80%B7%E1%80%A1%E1%80%90%E1%80%B0-/1404542375051755/",
-        "snippet": "Facebook · အခုရက်ပိုင်း ပြည်ပခရီးစဥ်တွေမှာ ပြည်တွင်းက ပုဂ္ဂလိကလေကြောင်းလိုင်းတွေကို အသုံးပြုတဲ့အခါ ဘယ်လိုအခြေအနေတွေကိုကြုံနေရလဲ၊ မှတ်ချက်ပေးမျှဝေပေးဖို့ ဖိတ်ခေါ်ပါတယ်။ · သုံးပတ်ကြာရှိလာပြီဖြစ်တဲ့ အမေရိကန်-အစ္စရေး နဲ့ အီရန် စစ်ပွဲကြောင့် ကမ္ဘာတဝန်းနည်းတူ မြန်မာရဲ့ စက်သုံးဆီ‌စျေးကွက် ...",
-        "date": "3 days ago",
-        "position": 1
-      }
-    ];
+    <!-- JS for functionality -->
+    <script>
+        let isAdminMode = false;
 
-    const storageKey = 'newsData';
+        const mockData = [
+            {
+                title: "BBC Burmese",
+                link: "https://www.facebook.com/BBCnewsBurmese/photos/%E1%80%80%E1%80%99%E1%80%B9%E1%80%98%E1%80%AC%E1%80%B7%E1%80%A1%E1%80%95%E1%80%BB%E1%80%B1%E1%80%AC%E1%80%BA%E1%80%86%E1%80%AF%E1%80%B6%E1%80%B8%E1%80%94%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%84%E1%80%B6%E1%80%85%E1%80%AC%E1%80%9B%E1%80%84%E1%80%BA%E1%80%B8%E1%80%99%E1%80%BE%E1%80%AC-%E1%80%99%E1%80%BC%E1%80%94%E1%80%BA%E1%80%99%E1%80%AC%E1%80%80-%E1%80%A1%E1%80%86%E1%80%84%E1%80%B7%E1%80%BA-%E1%81%81%E1%81%82%E1%81%89-%E1%80%99%E1%80%BE%E1%80%AC%E1%80%9B%E1%80%BE%E1%80%AD-%E1%80%9E%E1%80%90%E1%80%84%E1%80%BA%E1%80%B8%E1%80%A1%E1%80%95%E1%80%BC%E1%80%8A%E1%80%B7%E1%80%BA%E1%80%A1%E1%80%85%E1%80%AF%E1%80%B6%E1%80%94%E1%80%B2%E1%80%B7%E1%80%A1%E1%80%90%E1%80%B0-/1404542375051755/",
+                snippet: "အခုရက်ပိုင်း ပြည်ပခရီးစဥ်တွေမှာ ပြည်တွင်းက...",
+                date: "3 days ago",
+                position: 1
+            },
+            {
+                title: "Technology – နည်းပညာ/သတင်းနှင့်​ရသအစုံ",
+                link: "https://sma435536636.wordpress.com/category/technology/",
+                snippet: "အပြည်ပြည်ဆိုင်ရာ ဆက်သွယ်ရေး အသင်းအဖွဲ့မှ...",
+                date: "May 7, 2017",
+                position: 2
+            }
+        ];
 
-    let newsData = JSON.parse(localStorage.getItem(storageKey)) || [...defaultNews];
-    let editingIndex = null;
+        const loadNewsData = () => {
+            const heroSection = mockData[0];
+            document.getElementById("hero-title").innerText = heroSection.title;
+            document.getElementById("hero-snippet").innerText = heroSection.snippet;
+            document.getElementById("hero-link").href = heroSection.link;
 
-    // DOM Elements
-    const newsList = document.getElementById('news-list');
-    const editorModal = document.getElementById('editor-modal');
-    const editForm = document.getElementById('edit-form');
-    const editTitle = document.getElementById('edit-title');
-    const editSnippet = document.getElementById('edit-snippet');
-    const editImage = document.getElementById('edit-image');
-    const cancelEdit = document.getElementById('cancel-edit');
-    const fetchLatest = document.getElementById('fetch-latest');
+            const newsGrid = document.getElementById("news-grid");
+            newsGrid.innerHTML = "";
 
-    // Render News List
-    function renderNews() {
-      newsList.innerHTML = '';
-      newsData.forEach((news, index) => {
-        const newsItem = document.createElement('div');
-        newsItem.className = 'bg-white p-4 rounded shadow';
-        newsItem.innerHTML = `
-          <h3 class="text-lg font-bold">${news.title}</h3>
-          <p class="text-sm text-gray-500">${news.snippet}</p>
-          <p class="text-xs text-gray-400">Publish Date: ${news.date}</p>
-          <div class="mt-2 flex gap-2">
-            <button class="bg-blue-500 text-white px-3 py-1 rounded edit-btn" data-index="${index}">တည်းဖြတ်မည်</button>
-            <button class="bg-red-500 text-white px-3 py-1 rounded delete-btn" data-index="${index}">ဖျက်မည်</button>
-          </div>
-        `;
-        newsList.appendChild(newsItem);
-      });
+            mockData.forEach((item, index) => {
+                if (index === 0) return; // Skip the hero section
+                
+                const card = document.createElement("div");
+                card.className = "bg-white shadow-lg rounded-lg overflow-hidden";
+                
+                card.innerHTML = `
+                    <div class="relative h-48">
+                        <img src="https://source.unsplash.com/600x400/?news,${index}" alt="${item.title}" class="w-full h-full object-cover">
+                        ${isAdminMode ? '<button class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded admin-tools" onclick="editNews(${index})">Edit</button>' : ''}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2">${item.title}</h3>
+                        <p class="text-gray-600 truncate">${item.snippet}</p>
+                        <a href="${item.link}" target="_blank" class="text-blue-600 hover:underline mt-4 block">ဆက်လက်ဖတ်ရှုရန်</a>
+                    </div>
+                `;
 
-      // Attach dynamic event listeners
-      document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', handleEditClick);
-      });
-      document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', handleDeleteClick);
-      });
-    }
+                newsGrid.appendChild(card);
+            });
+        };
 
-    // Edit Button Handler
-    function handleEditClick(e) {
-      editingIndex = e.target.getAttribute('data-index');
-      const news = newsData[editingIndex];
-      editTitle.value = news.title;
-      editSnippet.value = news.snippet;
-      editorModal.classList.remove('hidden');
-    }
+        const toggleAdminMode = () => {
+            isAdminMode = !isAdminMode;
+            document.body.classList.toggle("admin-mode", isAdminMode);
+            loadNewsData();
+        };
 
-    // Delete Button Handler
-    function handleDeleteClick(e) {
-      const index = e.target.getAttribute('data-index');
-      if (confirm("ဖျက်ရန်သေချာပါသလား?")) {
-        newsData.splice(index, 1);
-        updateLocalStorageAndRender();
-      }
-    }
+        const editNews = (index) => {
+            const newTitle = prompt("Edit Title", mockData[index].title);
+            const newSnippet = prompt("Edit Snippet", mockData[index].snippet);
+            const newLink = prompt("Edit Link", mockData[index].link);
 
-    // Save Edited News
-    editForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      newsData[editingIndex].title = editTitle.value;
-      newsData[editingIndex].snippet = editSnippet.value;
-      updateLocalStorageAndRender();
-      editorModal.classList.add('hidden');
-    });
+            if (newTitle) mockData[index].title = newTitle;
+            if (newSnippet) mockData[index].snippet = newSnippet;
+            if (newLink) mockData[index].link = newLink;
 
-    // Cancel Editing
-    cancelEdit.addEventListener('click', () => {
-      editorModal.classList.add('hidden');
-    });
+            localStorage.setItem("newsData", JSON.stringify(mockData)); // Save to LocalStorage
+            loadNewsData();
+        };
 
-    // Fetch Latest News (Simulated)
-    fetchLatest.addEventListener('click', () => {
-      const newNews = {
-        title: "သတင်းအသစ်",
-        link: "#",
-        snippet: "AI မှ Generate လုပ်ထားသော သတင်းခေါင်းစဉ်",
-        date: "ယနေ့",
-        position: newsData.length + 1
-      };
-      newsData.push(newNews);
-      updateLocalStorageAndRender();
-      alert("နောက်ဆုံးသတင်းများ ထပ်ဆင့်ထည့်ပြီးပါပြီ!");
-    });
+        // Load data from LocalStorage
+        const savedNewsData = localStorage.getItem("newsData");
+        if (savedNewsData) {
+            mockData.splice(0, mockData.length, ...JSON.parse(savedNewsData));
+        }
 
-    // Update LocalStorage and Re-render
-    function updateLocalStorageAndRender() {
-      localStorage.setItem(storageKey, JSON.stringify(newsData));
-      renderNews();
-    }
-
-    // Initialize App
-    renderNews();
-  </script>
-
+        loadNewsData(); // Initial data load
+    </script>
 </body>
 </html>
