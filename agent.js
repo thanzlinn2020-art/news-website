@@ -18,39 +18,37 @@ async function askAI(role, task) {
   return response.body.choices[0].message.content;
 }
 
-async function buildBBCStyleCMS() {
-  const userHeadline = process.env["NEWS_HEADLINE"] || "မြန်မာ့နောက်ဆုံးရသတင်းများ";
-  console.log(`🚀 Building BBC Style Portal for: ${userHeadline}`);
+async function startUniversalAgent() {
+  // Lynn ဆီက လာတဲ့ အမိန့် (ဥပမာ- "BMI App ဆောက်ပေးပါ" သို့မဟုတ် "ငွေလဲနှုန်းတွက်တဲ့ App")
+  const prompt = process.env["NEWS_HEADLINE"] || "Useful Web App";
+  console.log(`🚀 AGENT MISSION: Building "${prompt}"...`);
 
-  // Google Search မှ တကယ့် BBC News များ ရှာဖွေခြင်း
-  const res = await axios.post('https://google.serper.dev/search', { q: `site:bbc.com/burmese ${userHeadline}`, gl: "mm" }, {
+  // ၁။ Internet မှာ ဒီ App အတွက် လိုအပ်တဲ့ Logic တွေ ရှာမယ်
+  const res = await axios.post('https://google.serper.dev/search', { q: `how to build ${prompt} web app functionality`, gl: "mm" }, {
     headers: { 'X-API-KEY': serperKey }
   });
-  const realNewsData = JSON.stringify(res.data.organic.slice(0, 8)); 
+  const techSpecs = JSON.stringify(res.data.organic);
 
+  // ၂။ AI က အဲ့ဒီ အချက်အလက်တွေနဲ့ App တစ်ခုလုံးကို ရေးမယ်
   const finalCode = await askAI(
-    "You are a Senior UI/UX Developer specializing in News Portals.",
-    `Build a BBC Burmese clone in one HTML file. 
+    "You are an Advanced AI Software Engineer like Devin or Replit Agent.",
+    `Task: Build a fully functional, professional-grade Web Application for: "${prompt}". 
      
-     DESIGN REQUIREMENTS:
-     1. **Header**: Red background with white 'NEWS' text and Burmese labels.
-     2. **Typography**: Use clean sans-serif fonts with clear spacing between lines.
-     3. **Layout**: One big 'Hero' story at the top, followed by a list of smaller news items with thumbnails on the side (like BBC mobile app).
-     4. **Auto-Data**: Populate with this data: ${realNewsData}.
-     5. **Admin Power**:
-        - Hide an 'Admin' access button at the bottom.
-        - Inside Admin: Ability to 'Edit' news content and 'Add' new items manually.
-        - Button 'Fetch Latest' to re-run AI search and update data.
-     6. **Functionality**: Fully interactive buttons with JavaScript and LocalStorage persistence.
+     TECHNICAL SPECS:
+     - Use Tailwind CSS for a high-end UI/UX.
+     - Include all necessary JavaScript logic for the app to actually WORK (e.g., calculations, data handling).
+     - Responsive design (Mobile + Desktop).
+     - Language: Burmese (Labels and Instructions).
+     - Knowledge base: ${techSpecs}.
      
-     Response ONLY with valid, complete HTML starting with <!DOCTYPE html>. No explanations.`
+     Output ONLY pure HTML/CSS/JS code. No explanations. No markdown.`
   );
 
   let cleanCode = finalCode.trim();
   if (cleanCode.startsWith("```")) cleanCode = cleanCode.replace(/^```html|```$/g, "").trim();
 
   fs.writeFileSync("index.html", cleanCode);
-  console.log("✅ BBC Style News Portal Build Complete!");
+  console.log(`✅ SUCCESS: "${prompt}" has been built and deployed!`);
 }
 
-buildBBCStyleCMS();
+startUniversalAgent();
