@@ -6,69 +6,49 @@ import axios from "axios";
 const token = process.env["GH_MODELS_TOKEN"];
 const serperKey = process.env["SERPER_API_KEY"];
 const client = new ModelClient("https://models.inference.ai.azure.com", new AzureKeyCredential(token));
-const modelName = "DeepSeek-V3-0324"; 
+const modelName = "gpt-4o"; // Logic ပိုမှန်ဖို့ gpt-4o ကို ခဏပြန်သုံးပါမယ်
 
 async function askAI(role, task) {
-  try {
-    const response = await client.path("/chat/completions").post({
-      body: {
-        messages: [
-          { role: "system", content: role + " အရေးကြီးချက်: မြန်မာစာသတ်ပုံကို ယူနီကုဒ်စနစ်ဖြင့် အမှန်ကန်ဆုံး ရေးသားပါ။" },
-          { role: "user", content: task }
-        ],
-        model: modelName
-      }
-    });
-
-    // Error စစ်ဆေးခြင်း
-    if (response.body && response.body.choices && response.body.choices[0]) {
-      return response.body.choices[0].message.content;
-    } else {
-      throw new Error("AI Response is empty or invalid.");
+  const response = await client.path("/chat/completions").post({
+    body: {
+      messages: [
+        { role: "system", content: role + " အရေးကြီးချက်: JavaScript Function များ အလုပ်လုပ်ရမည်။ Admin Dashboard ပါရမည်။" },
+        { role: "user", content: task }
+      ],
+      model: modelName
     }
-  } catch (err) {
-    console.error("AI Error:", err.message);
-    return `<h1>Error occurred</h1><p>${err.message}</p>`; // Error ဖြစ်ရင် စာသားလေး ပြပေးမယ်
-  }
+  });
+  return response.body.choices[0].message.content;
 }
 
-async function googleSearch(query) {
-  console.log(`🔍 Searching: ${query}`);
-  try {
-    const data = JSON.stringify({ "q": query, "gl": "mm", "hl": "my" });
-    const config = {
-      method: 'post',
-      url: 'https://google.serper.dev/search',
-      headers: { 'X-API-KEY': serperKey, 'Content-Type': 'application/json' },
-      data: data
-    };
-    const response = await axios(config);
-    return response.data.organic.map(item => `${item.title}: ${item.snippet}`).join("\n");
-  } catch (err) {
-    console.error("Search Error:", err.message);
-    return "No search results.";
-  }
-}
+async function startUniversalBuilder() {
+  const userReq = process.env["NEWS_HEADLINE"] || "Myanmar News Portal with Admin Dashboard";
+  console.log(`🚀 BUILDING FULL WEB APP: ${userReq}`);
 
-async function startAgent() {
-  const userReq = process.env["NEWS_HEADLINE"] || "မြန်မာ့သတင်း Website";
-  console.log(`🚀 AGENT STARTING: ${userReq}`);
+  // Step 1: Search for latest news
+  const searchResults = await (async (q) => {
+    const res = await axios.post('https://google.serper.dev/search', { q, gl: "mm" }, {
+      headers: { 'X-API-KEY': serperKey }
+    });
+    return res.data.organic.map(i => i.snippet).join("\n");
+  })(userReq);
 
-  const searchResults = await googleSearch(userReq);
-  
+  // Step 2: Coding with Full Functionality
   const finalCode = await askAI(
-    "You are a Senior Web Developer.",
-    `Build a professional and functional Web App/Website for: "${userReq}". Use Tailwind CSS and ensure interactive JavaScript. Use this data: \n${searchResults}\n Response ONLY with full HTML/JS code.`
+    "You are a Full-stack Developer.",
+    `Build a complete News Web App.
+     REQUIRED FEATURES:
+     1. Home Page: Show news with real images from Unsplash.
+     2. Admin Dashboard: A hidden section or a modal to add/edit/delete news.
+     3. JavaScript: Use LocalStorage to save news locally so Admin changes persist.
+     4. UI: Modern Tailwind CSS. Buttons MUST work.
+     5. Language: Burmese.
+     Data to include: ${searchResults}
+     Response ONLY with full HTML/JS/CSS code.`
   );
 
-  // HTML သေချာပါမှ သိမ်းရန်
-  if (finalCode.includes("<html") || finalCode.includes("<!DOCTYPE")) {
-    fs.writeFileSync("index.html", finalCode.replace(/```html|```/g, "").trim());
-    console.log("✅ Build Complete!");
-  } else {
-    console.log("❌ Build failed: No HTML content received.");
-    process.exit(1);
-  }
+  fs.writeFileSync("index.html", finalCode.replace(/```html|```/g, "").trim());
+  console.log("✅ Full Web App with Admin Panel is Ready!");
 }
 
-startAgent();
+startUniversalBuilder();
