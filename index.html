@@ -1,162 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BBC Burmese Clone</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        header {
-            background-color: #B80000;
-            color: white;
-            padding: 10px 15px;
-            text-align: center;
-            font-size: 1.5em;
-        }
-        main {
-            padding: 15px;
-        }
-        .hero {
-            margin-bottom: 20px;
-        }
-        .hero img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .story {
-            margin: 15px 0;
-            display: flex;
-            align-items: flex-start;
-        }
-        .story img {
-            width: 100px;
-            height: 80px;
-            object-fit: cover;
-            margin-right: 10px;
-            border-radius: 8px;
-        }
-        .hidden {
-            display: none;
-        }
-        .admin-panel {
-            background: #f5f5f5;
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        .admin-panel input,
-        .admin-panel button {
-            margin: 5px 0;
-            padding: 10px;
-        }
-        .admin-toggle {
-            display: none;
-        }
-    </style>
+    <title>MYANMAR GLOBAL INSIGHT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        NEWS
-        <br>
-        <small>ဗီြအိုးေအိုင္ ဘား</small>
-    </header>
-    <main>
-        <section id="news-section">
-            <div class="hero" id="hero-story">
-                <img src="https://via.placeholder.com/800x400" alt="Hero Story">
-                <h2 id="hero-title">Hero Story Title</h2>
-                <p id="hero-desc">Hero story description goes here...</p>
-            </div>
-            <div id="news-list">
-                <!-- List of news will be populated here -->
-            </div>
-        </section>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
-        <button id="admin-access" class="hidden">Admin</button>
-        <div id="admin-panel" class="hidden admin-panel">
-            <h3>Admin Panel</h3>
-            <label>
-                Title:
-                <input id="news-title" type="text">
-            </label>
-            <label>
-                Description:
-                <input id="news-desc" type="text">
-            </label>
-            <label>
-                Thumbnail URL:
-                <input id="news-thumbnail" type="text">
-            </label>
-            <button id="add-news">Add News</button>
-            <button id="fetch-latest">Fetch Latest</button>
+    <!-- Header -->
+    <header class="bg-blue-800 text-white">
+        <div class="container mx-auto flex justify-between items-center py-4">
+            <h1 class="text-3xl font-semibold">MYANMAR GLOBAL INSIGHT</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#home" class="hover:text-blue-300">ပင်မစာမျက်နှာ</a></li>
+                    <li><a href="#news" class="hover:text-blue-300">သတင်း</a></li>
+                    <li><a href="#sports" class="hover:text-blue-300">အားကစား</a></li>
+                    <li><a href="#tech" class="hover:text-blue-300">နည်းပညာ</a></li>
+                    <li><a href="#business" class="hover:text-blue-300">စီးပွားရေး</a></li>
+                </ul>
+            </nav>
         </div>
-    </main>
-    
-    <script>
-        let newsData = JSON.parse(localStorage.getItem('newsData')) || [
-            { 
-                title: "Sample Story 1", 
-                description: "Description for Sample Story 1.", 
-                thumbnail: "https://via.placeholder.com/100"
-            }, 
-            {
-                title: "Sample Story 2", 
-                description: "Description for Sample Story 2.", 
-                thumbnail: "https://via.placeholder.com/100"
-            }
-        ];
+    </header>
 
-        function renderNews() {
-            const heroStory = newsData[0];
-            document.getElementById('hero-title').textContent = heroStory.title;
-            document.getElementById('hero-desc').textContent = heroStory.description;
+    <!-- Hero Section -->
+    <section id="home" class="bg-gray-200">
+        <div class="container mx-auto text-center py-16">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">မြန်မာနှင့် နိုင်ငံတကာ သတင်းကို အချိန်နဲ့တပြေးညီ ဖတ်ရှုနိုင်ရန်!</h2>
+            <p class="text-lg text-gray-600">ကျန်မာ့နည်းပညာ၊ စီးပွားရေးနှင့် အားကစားသတင်းများ တင်ဆက်ပေးနေသော မျှသာ၊ အရည်အသွေးမြင့်မားသော ဝက်ဘ်ဆိုဒ်တစ်ခု။</p>
+        </div>
+    </section>
 
-            const newsList = document.getElementById('news-list');
-            newsList.innerHTML = '';
-            newsData.slice(1).forEach((news, index) => {
-                const newsItem = `
-                    <div class="story">
-                        <img src="${news.thumbnail}" alt="News Thumbnail">
-                        <div>
-                            <h3>${news.title}</h3>
-                            <p>${news.description}</p>
-                        </div>
-                    </div>`;
-                newsList.innerHTML += newsItem;
-            });
-        }
+    <!-- News Section -->
+    <section id="news" class="py-12 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">နောက်ဆုံးသတင်းများ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-100 rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2">Build Myanmar Introduction</h3>
+                    <p class="text-gray-600 text-sm mb-4">Build Myanmar သည် မြန်မာနိုင်ငံတွင် နည်းပညာဖြင့် ဖွံ့ဖြိုးတိုးတက်မှုဆောင်ရွက်နေသော အဖွဲ့အစည်းဖြစ်သည်။</p>
+                    <a href="https://www.youtube.com/watch?v=MFDxHbEA68I" target="_blank" class="text-blue-600 hover:underline">လင့်ပါမှတ်တမ်းကြည့်ရန်</a>
+                </div>
 
-        document.getElementById('add-news').addEventListener('click', () => {
-            const title = document.getElementById('news-title').value;
-            const desc = document.getElementById('news-desc').value;
-            const thumbnail = document.getElementById('news-thumbnail').value;
+                <div class="bg-gray-100 rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2">နည်းပညာ – သတင်းနှင့် ရသများ</h3>
+                    <p class="text-gray-600 text-sm mb-4">မြန်မာလိုပြောလိုက်နဲ့ ကိုယ်သိချင်တဲ့ ဘာသာစကားကို အသံထွက်ဖတ်ပြပါတယ်။</p>
+                    <a href="https://sma435536636.wordpress.com/category/technology/" target="_blank" class="text-blue-600 hover:underline">ဆက်လက်ဖတ်ရန်</a>
+                </div>
 
-            if (title && desc && thumbnail) {
-                newsData.unshift({ title, description: desc, thumbnail });
-                localStorage.setItem('newsData', JSON.stringify(newsData));
-                renderNews();
-            }
-        });
+                <div class="bg-gray-100 rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2">Latest Tech Innovations</h3>
+                    <p class="text-gray-600 text-sm mb-4">နောက်ဆုံးထွက် နည်းပညာများကို တိုက်ရိုက်တင်ဆက်မှုပုံစံဖြစ်သည်။</p>
+                    <a href="#" class="text-blue-600 hover:underline">ဖတ်ရှုရန်</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        document.getElementById('fetch-latest').addEventListener('click', () => {
-            alert("Fetching the latest news... Placeholder functionality.");
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'A' && e.ctrlKey) {
-                const adminPanel = document.getElementById('admin-panel');
-                adminPanel.classList.toggle('hidden');
-            }
-        });
-
-        renderNews();
-    </script>
-</body>
-</html>
+    <!-- Sports Section -->
+    <section id="sports" class="py-12 bg-gray-200">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">အားကစားသတင်း</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-100 rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2">ကျန်လက်မှတ်ကြည့်ရန် နည်းပညာများ</h3>
+                    <p class="text-gray-600 text-sm mb-4">အားကစားပွဲများနှင့် လေ့ကျင့်ရေးမှတ်တမ်းများ။</p>
+                    <a href="#" class="text-blue-600 hover:underline">တစ်ချက်ကြည့်ရန်</a>
+                </div>
+                <div class="bg-gray-100 rounded-lg p-6 shadow">
+                    <h3 class="text-lg font-semibold mb-2">ယူရိုလောလုပ်ဖွဲ့နှင့် ရှေ့နှင့်မည်</h3>
+                    <p class="text-gray-600 text-sm mb-4">ခြေးကြောက်ခြင်းနက်တြေလို့ပြီး!</p>
+                ---
