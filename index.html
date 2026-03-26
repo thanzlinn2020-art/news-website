@@ -1,106 +1,308 @@
+Here's a professional news website for "MYANMAR GLOBAL INSIGHT" with Tailwind CSS and interactive JavaScript:
+
+
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>နောက်ဆုံးရ အားကစားသတင်း</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&display=swap">
-  <style>
-    body {
-      font-family: 'Noto Sans Myanmar', sans-serif;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYANMAR GLOBAL INSIGHT - မြန်မာနှင့်နိုင်ငံတကာသတင်း</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#2c5282',
+                        accent: '#4299e1',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl mr-3">MGI</div>
+                    <h1 class="text-2xl font-bold text-primary">MYANMAR GLOBAL INSIGHT</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium">ပင်မစာမျက်နှာ</a>
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium">နိုင်ငံတကာသတင်း</a>
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium">အားကစား</a>
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium">နည်းပညာ</a>
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium">စီးပွားရေး</a>
+                </div>
+                <button class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-  <!-- Header -->
-  <header class="shadow-md bg-gray-100">
-    <div class="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-gray-900">နောက်ဆုံးရ အားကစားသတင်း</h1>
-      <nav>
-        <a href="#" class="text-gray-700 hover:text-gray-900 mx-4">ပင်မစာမျက်နှာ</a>
-        <a href="#" class="text-gray-700 hover:text-gray-900 mx-4">နေရာခံ</a>
-        <a href="#" class="text-gray-700 hover:text-gray-900 mx-4">ဆက်သွယ်ရန်</a>
-      </nav>
+    <!-- Hero Section -->
+    <section class="bg-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">မြန်မာနှင့်နိုင်ငံတကာ သတင်းများ</h2>
+                <p class="text-lg mb-6">နေ့စဥ်အချိန်နှင့်တပြေးညီ သတင်းများကို ဖတ်ရှုနိုင်ပါသည်</p>
+                <div class="relative max-w-md mx-auto">
+                    <input type="text" placeholder="သတင်းရှာဖွေရန်..." class="w-full py-2 px-4 rounded-full text-gray-800 focus:outline-none">
+                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-accent text-white py-1 px-4 rounded-full">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Left Column -->
+            <div class="lg:w-2/3">
+                <!-- Featured News -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                    <img src="https://via.placeholder.com/800x450" alt="Featured News" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 mb-2">
+                            <span class="bg-primary text-white px-2 py-1 rounded mr-2">အဓိကသတင်း</span>
+                            <span>အောက်တိုဘာ ၂၅၊ ၂၀၂၃</span>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-3">ပြည်ပခရီးစဥ်များတွင် ပုဂ္ဂလိကလေကြောင်းလိုင်းများ၏ အခက်အခဲများ</h2>
+                        <p class="text-gray-700 mb-4">အခုရက်ပိုင်း ပြည်ပခရီးစဥ်တွေမှာ ပြည်တွင်းက ပုဂ္ဂလိကလေကြောင်းလိုင်းတွေကို အသုံးပြုတဲ့အခါ ဘယ်လိုအခြေအနေတွေကိုကြုံနေရလဲ၊ မှတ်ချက်ပေးမျှဝေပေးဖို့ ဖိတ်ခေါ်ပါတယ်။ သုံးပတ်ကြာရှိလာပြီဖြစ်တဲ့ အမေရိကန်-အစ္စရေး နဲ့ အီရန် စစ်ပွဲကြောင့် ကမ္ဘာတဝန်းနည်းတူ မြန်မာရဲ့ စက်သုံးဆီ‌စျေးကွက်...</p>
+                        <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
+                    </div>
+                </div>
+
+                <!-- News Grid -->
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <!-- News Item 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://via.placeholder.com/400x225" alt="News" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <div class="text-sm text-gray-500 mb-2">နည်းပညာ | အောက်တိုဘာ ၂၄၊ ၂၀၂၃</div>
+                            <h3 class="text-xl font-bold mb-2">5G နည်းပညာ၏ အနာဂတ်နှင့် Vivo ၏ သုတေသန</h3>
+                            <p class="text-gray-700 mb-3">အပြည်ပြည်ဆိုင်ရာ ဆက်သွယ်ရေး အသင်းအဖွဲ့မှ 5G နှင့်ပတ်သက်သည့် အမြင်ကို မျှဝေပေးခဲ့သည့်နောက် မကြာမီမှာ Vivo ကလည်း သုတေသန ပြုလုပ်ခဲ့ခြင်း ဖြစ်ပါသည်။</p>
+                            <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
+                        </div>
+                    </div>
+
+                    <!-- News Item 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://via.placeholder.com/400x225" alt="News" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <div class="text-sm text-gray-500 mb-2">စီးပွားရေး | အောက်တိုဘာ ၂၃၊ ၂၀၂၃</div>
+                            <h3 class="text-xl font-bold mb-2">မြန်မာ့စီးပွားရေးတွင် နိုင်ငံခြားရင်းနှီးမြှုပ်နှံမှုများ</h3>
+                            <p class="text-gray-700 mb-3">ယခုနှစ်အတွင်း မြန်မာနိုင်ငံသို့ နိုင်ငံခြားရင်းနှီးမြှုပ်နှံမှုများ တိုးတက်လာမှုနှင့် စိန်ခေါ်မှုများ အကြောင်း သုံးသပ်ချက်။</p>
+                            <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
+                        </div>
+                    </div>
+
+                    <!-- News Item 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://via.placeholder.com/400x225" alt="News" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <div class="text-sm text-gray-500 mb-2">အားကစား | အောက်တိုဘာ ၂၂၊ ၂၀၂၃</div>
+                            <h3 class="text-xl font-bold mb-2">ကမ္ဘာ့ဖလားဘောလုံးပြိုင်ပွဲအတွက် မြန်မာ့အသင်း ပြင်ဆင်မှုများ</h3>
+                            <p class="text-gray-700 mb-3">လာမည့် ကမ္ဘာ့ဖလားဘောလုံးပြိုင်ပွဲအတွက် မြန်မာ့အသင်း၏ ပြင်ဆင်မှုများနှင့် မျှော်မှန်းချက်များ။</p>
+                            <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
+                        </div>
+                    </div>
+
+                    <!-- News Item 4 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://via.placeholder.com/400x225" alt="News" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <div class="text-sm text-gray-500 mb-2">နိုင်ငံတကာ | အောက်တိုဘာ ၂၁၊ ၂၀၂၃</div>
+                            <h3 class="text-xl font-bold mb-2">အမေရိကန်-အစ္စရေး ဆက်ဆံရေးနှင့် ဒေသတွင်း အကျိုးသက်ရောက်မှုများ</h3>
+                            <p class="text-gray-700 mb-3">အမေရိကန်-အစ္စရေး နဲ့ အီရန် စစ်ပွဲကြောင့် ကမ္ဘာတဝန်းနည်းတူ မြန်မာရဲ့ စက်သုံးဆီ‌စျေးကွက် အပေါ် သက်ရောက်မှုများ။</p>
+                            <a href="#" class="text-accent font-medium hover:underline">ဆက်လက်ဖတ်ရှုရန်</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex justify-center space-x-2 mb-8">
+                    <button class="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">ရှေ့သို့</button>
+                    <button class="px-4 py-2 bg-primary text-white rounded">1</button>
+                    <button class="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">2</button>
+                    <button class="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">3</button>
+                    <button class="px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-100">နောက်သို့</button>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="lg:w-1/3">
+                <!-- Categories -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">ကဏ္ဍများ</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>နိုင်ငံတကာသတင်း</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၂၄</span></a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>အားကစား</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၁၈</span></a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>နည်းပညာ</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၁၅</span></a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>စီးပွားရေး</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၁၂</span></a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-accent flex justify-between"><span>ကျန်းမာရေး</span> <span class="bg-gray-200 px-2 rounded-full text-sm">၈</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Popular News -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">လူကြိုက်များသတင်း</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3">
+                            <img src="https://via.placeholder.com/80x60" alt="Popular News" class="w-20 h-14 object-cover rounded">
+                            <div>
+                                <h4 class="font-medium text-sm hover:text-accent"><a href="#">မြန်မာ့စီးပွားရေးတွင် နိုင်ငံခြားရင်းနှီးမြှုပ်နှံမှုများ</a></h4>
+                                <p class="text-xs text-gray-500">အောက်တိုဘာ ၂၃၊ ၂၀၂၃</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <img src="https://via.placeholder.com/80x60" alt="Popular News" class="w-20 h-14 object-cover rounded">
+                            <div>
+                                <h4 class="font-medium text-sm hover:text-accent"><a href="#">5G နည်းပညာ၏ အနာဂတ်နှင့် Vivo ၏ သုတေသန</a></h4>
+                                <p class="text-xs text-gray-500">အောက်တိုဘာ ၂၄၊ ၂၀၂၃</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <img src="https://via.placeholder.com/80x60" alt="Popular News" class="w-20 h-14 object-cover rounded">
+                            <div>
+                                <h4 class="font-medium text-sm hover:text-accent"><a href="#">ပြည်ပခရီးစဥ်များတွင် လေကြောင်းလိုင်းများ၏ အခက်အခဲ</a></h4>
+                                <p class="text-xs text-gray-500">အောက်တိုဘာ ၂၅၊ ၂၀၂၃</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">သတင်းလွှာစာရင်း</h3>
+                    <p class="text-gray-700 mb-4">နေ့စဥ်သတင်းများကို အချိန်နှင့်တပြေးညီ ရယူလိုပါက အောက်ပါဖောင်ကို ဖြည့်ပါ</p>
+                    <form class="space-y-3">
+                        <input type="text" placeholder="သင့်နာမည်" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-accent">
+                        <input type="email" placeholder="သင့်အီးမေးလ်" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-accent">
+                        <button type="submit" class="w-full bg-accent text-white py-2 rounded hover:bg-secondary transition">စာရင်းသွင်းမည်</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">MYANMAR GLOBAL INSIGHT</h3>
+                    <p class="text-gray-300">မြန်မာနှင့်နိုင်ငံတကာသတင်းများကို အချိန်နှင့်တပြေးညီ ဖော်ပြပေးနေသော သတင်းဝက်ဘ်ဆိုဒ်</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">လင့်ခ်များ</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">ပင်မစာမျက်နှာ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">ကျွန်ုပ်တို့အကြောင်း</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">ဆက်သွယ်ရန်</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">အကူအညီ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">ဆက်သွယ်ရန်</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> info@myanmarglobalinsight.com</li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-2"></i> +95 9 123 456 789</li>
+                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> ရန်ကုန်မြို့၊ မြန်မာနိုင်ငံ</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">လူမှုကွန်ရက်</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center hover:bg-accent"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-300">
+                <p>&copy; ၂၀၂၃ MYANMAR GLOBAL INSIGHT. မူပိုင်ခွင့်အားလုံးရှိသည်။</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-white z-50 hidden">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg mr-3">MGI</div>
+                    <h1 class="text-xl font-bold text-primary">MYANMAR GLOBAL INSIGHT</h1>
+                </div>
+                <button id="closeMenu" class="text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <nav class="space-y-4">
+                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">ပင်မစာမျက်နှာ</a>
+                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">နိုင်ငံတကာသတင်း</a>
+                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">အားကစား</a>
+                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">နည်းပညာ</a>
+                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">စီးပွားရေး</a>
+                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">ကျွန်ုပ်တို့အကြောင်း</a>
+                <a href="#" class="block py-2 text-gray-700 border-b border-gray-200">ဆက်သွယ်ရန်</a>
+            </nav>
+        </div>
     </div>
-  </header>
 
-  <!-- Main Section -->
-  <main class="mt-8">
-    <div class="max-w-5xl mx-auto px-4">
-      <article class="prose lg:prose-xl">
-        <h2 class="text-center text-2xl font-bold text-gray-900">နောက်ဆုံးရ အားကစားသတင်း</h2>
-        <p class="text-center text-gray-500 italic">နိုင်ငံတကာနှင့် ပြည်တွင်း အားကစားနယ်ပယ်များ၏ စိတ်ဝင်စားဖွယ် ဖန်တီးမှုများ</p>
-        <p class="text-gray-500">အောက်တိုဘာ၊ ၂၀၂၃ -</p>
-        <p>
-          အားကစားနိုင်ငံတကာနယ်ပယ်နှင့် ပြည်တွင်းလောကများတွင် စိတ်ဝင်စားဖွယ် ကျရောက်စရာဖြစ်စဉ်များကို 
-          နောက်ဆုံးရ သတင်းအနေဖြင့် တင်ပြလိုက်ပါသည်။ အောက်ဖော်ပြပါ သတင်းများသည် 
-          ကမ္ဘာတစ်ဝန်းရှိ အားကစားပရိတ်သတ်များနှင့် မြန်မာနိုင်ငံသားများအတွက် 
-          အထူးစိတ်ဝင်စားဖွယ် ဖြစ်နေချိန်တွင် ကမ္ဘာအဖွဲ့အစည်းများ၏ ပြောဆိုမှုများအားလုံးကိုလည်း အခြေခံထားပါသည်။
-        </p>
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('header button');
+            const closeButton = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
 
-        <h3 class="font-semibold">နိုင်ငံတကာ အားကစားနယ်ပယ်တွင် ထူးခြားမှုများ</h3>
-        <ol class="list-decimal list-inside">
-          <li>
-            <strong>၂၀၂၃ ရဲ့ ရှန်ပီယံလိဂ် (Champions League) အပြိုင်အဆိုင် အခြေအနေများ</strong><br>
-            ယူရိုပီယံဖလား ပြိုင်ပွဲကြီးတွင် သာသနာ့ကျောင်းအထက်တန်းလို့ခေါ်လို့ရသော 
-            ရည်ညွှန်းထိုက်ကစားပွဲတွေ ဖြစ်နေဆဲဖြစ်သည်။ 
-            အဓိကအီတလီကလပ်များဖြစ်တဲ့ Napoli နှင့် Inter Milan တို့၏ ပြိုင်ပွဲများမှာ 
-            ပိုမိုစိတ်လှုပ်ရှားဖွယ် ဖြစ်လာသကဲ့သို့ 
-            အင်္ဂလန်နိုင်ငံမှ Manchester City အဖွဲ့ရဲ့ စွမ်းဆောင်မှုသည် ယခင်နှစ်ဒီဇင်ဘာလမှစပြီး 
-            ထိန်းထားနိုင်မည့်အခြေအနေများရှိနေဆဲဖြစ်ပါသည်။ 
-            Lionel Messi နှင့် Cristiano Ronaldo တို့ကဲ့သို့သော ကစားသမားကြဲကြာကွာခြားမှုများကြားမှ 
-            အသစ်ရောက်လာတဲ့ ဟာလန် (Erling Haaland) က ကမ္ဘာ့အကောင်းဆုံးအဖြစ်
-            သတ်မှတ်ခံရနိုင်ဖွယ် ရှိနေသည်။
-          </li>
-          <li>
-            <strong>Rugby World Cup ၂၀၂၃</strong><br>
-            ချန်ပီယံဆုတွေအတွက် ယှဉ်ပြိုင်နေသူများတွင် 
-            ရှေးခေတ်ထောင်တည်မှုရှိရာ နယူးဇီလန် (All Blacks) နှင့် ဖရန့်ကုမ္မဏီတို့၏ 
-            အင်အားတူယှဉ်ပြိုင်မှုများ၏ ပင်ကိုယ်ထောင်မှုကြားမှ 
-            ပရိတ်သတ်များအတွက် အခြေပြုပွဲများ စိတ်ဝင်စားမှုများစွာဖြင့် စိုးမိုးခဲ့သည်။ 
-            ယှဉ်ပြိုင်ဆု၏ နောက်ဆုံးသွားရန် ရင်ဆိုင်ရန် မည်သူများနှင့် ဘယ်အရာများကိုဆုံကြုံရမည်ကို 
-            အတိအကျ ပြည့်စုံစွာ ကမ္ဘာ့အားကစားပရိတ်သတ်များစောင့်ကြည့်နေသည်။
-          </li>
-        </ol>
+            menuButton.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+            });
 
-        <h3 class="font-semibold">မြန်မာနိုင်ငံ အားကစားနယ်ပယ်၏ ဖွံ့ဖြိုးမှုများ</h3>
-        <ol class="list-decimal list-inside">
-          <li>
-            <strong>မြန်မာ့ ဘောလုံးလောက ဖွံ့ဖြိုးမှုများ</strong><br>
-            မြန်မာနိုင်ငံဘောလုံးအသင်းကြီးများဖြစ်တဲ့ Yangon United ၊ Shan United 
-            တို့ရဲ့ ၂၀၂၃ ပြိုင်ပွဲရာသီအပေါ်မှာ နောက်ဆုံးအခြေဖြစ်မှုများကို မိဘပြိုင်ပွဲအနေနဲ့ 
-            League နိုင်ငံရေးထောက်ပံလှုပ်ရှားမှုများအားတစ်ဦးဦးမှ အလေးပြုကြသည်။
-          </li>
-          <li>
-            <strong>တက်ရောက်လာသော မြန်မာ အားကစားသမားများ</strong><br>
-            ယခင်နှစ်က အသစ်တိုးတက်လာသောပုံတွေအရ ရုပ်သိန်း 
-            အောင်နိုင်ဘွဲ့ရတဲ့ တိုက်ပွဲအားကစားသမားများကသာမက 
-            MBF All-Stars ကြီးများတွင် အသင်းဝင်ထားသော 
-            မြန်မာနိုင်ငံဘက်စုံအားကစားသမားများပေါ်တွင် 
-            သီးခြားစီးပွားရေးနှင့် နိုင်ငံတကာအခြေပြုရေးရာ R&D များဆောင်ရွက်နေသည်။
-          </li>
-        </ol>
+            closeButton.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
 
-        <h3 class="font-semibold">နောက်ဆုံးချုပ်</h3>
-        <p>
-          အားကစားကဏ္ဍမှာ ယှဉ်ပြိုင်မှုများနှင့် ဖွံ့ဖြိုးမှုလုပ်ငန်းများက 
-          မြန်မာ့လူငယ်အားကစားဖွံဖြိုးရေးအတွက် အလွန်ကြီးမားသော အရေးပါမှုရှိရာ 
-          မြန်မာနိုင်ငံတွင်လည်း အားကစားစိတ်ဝင်စားမှု ပိုမိုတိုးမြှင့်လာရန် လိုအပ်သေးသည်။
-          ဤသတင်းသည် နောက်ဆုံးရ အားကစားနယ်ပယ်အခြေအနေများကို 
-          အကျဉ်းချုပ်သတင်းပေးရန် ရည်ရွယ်သည်။
-        </p>
-      </article>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-gray-100 mt-8 py-6">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <p class="text-gray-500">&copy; ၂၀၂၃ နောက်ဆုံးရ အားကစားသတင်း | Designed with ❤️</p>
-    </div>
-  </footer>
-
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.getAttribute('href');
+                    if (target === '#') return;
+                    
+                    document.querySelector(target).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+
+
+This code creates a complete, responsive news website for MYANMAR GLOBAL INSIGHT with:
+
+1. Professional UI using Tailwind CSS
+2. Mobile-responsive design with hamburger menu
+3. Featured news section
+4. News grid layout
+5. Category sidebar
+6. Popular news section
+7. Newsletter subscription
+8. Footer with contact information
+9. Interactive JavaScript for mobile menu and smooth scrolling
+10. Proper Unicode Myanmar text throughout
+
+The design follows modern news website conventions while being fully localized for Myanmar readers. The color scheme uses blue tones which are common for professional news sites.
