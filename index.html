@@ -1,74 +1,62 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MYANMAR GLOBAL INSIGHT</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
+    <h1 class="text-xl font-bold text-gray-800 text-center mb-4">ကိုယ်အလေးချိန်စာရင်းများ (BMI Calculator)</h1>
+    <form id="bmiForm" class="space-y-4">
+      <div>
+        <label for="weight" class="block text-gray-700 font-medium mb-2">ကိုယ်အလေးချိန် (ကီလိုမီတာ)</label>
+        <input type="number" id="weight" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="ဥပမာ: 65" min="0" step="0.1" required>
+      </div>
+      <div>
+        <label for="height" class="block text-gray-700 font-medium mb-2">အရပ်အမြင့် (မီတာ)</label>
+        <input type="number" id="height" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="ဥပမာ: 1.75" min="0" step="0.01" required>
+      </div>
+      <button type="button" id="calculateButton" class="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">တွက်ချက်ပါ</button>
+    </form>
+    <div id="result" class="mt-6 text-center hidden">
+      <p class="text-lg font-bold text-gray-700">သင့်ရဲ့ BMI: <span id="bmiValue" class="text-blue-500"></span></p>
+      <p id="bmiCategory" class="text-gray-700"></p>
+    </div>
+  </div>
 
-    <!-- Header -->
-    <header class="bg-blue-800 text-white">
-        <div class="container mx-auto flex justify-between items-center py-4">
-            <h1 class="text-3xl font-semibold">MYANMAR GLOBAL INSIGHT</h1>
-            <nav>
-                <ul class="flex space-x-4">
-                    <li><a href="#home" class="hover:text-blue-300">ပင်မစာမျက်နှာ</a></li>
-                    <li><a href="#news" class="hover:text-blue-300">သတင်း</a></li>
-                    <li><a href="#sports" class="hover:text-blue-300">အားကစား</a></li>
-                    <li><a href="#tech" class="hover:text-blue-300">နည်းပညာ</a></li>
-                    <li><a href="#business" class="hover:text-blue-300">စီးပွားရေး</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <script>
+    document.getElementById('calculateButton').addEventListener('click', function () {
+      const weight = parseFloat(document.getElementById("weight").value);
+      const height = parseFloat(document.getElementById("height").value);
+      const resultDiv = document.getElementById("result");
+      const bmiValueSpan = document.getElementById("bmiValue");
+      const bmiCategoryP = document.getElementById("bmiCategory");
 
-    <!-- Hero Section -->
-    <section id="home" class="bg-gray-200">
-        <div class="container mx-auto text-center py-16">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">မြန်မာနှင့် နိုင်ငံတကာ သတင်းကို အချိန်နဲ့တပြေးညီ ဖတ်ရှုနိုင်ရန်!</h2>
-            <p class="text-lg text-gray-600">ကျန်မာ့နည်းပညာ၊ စီးပွားရေးနှင့် အားကစားသတင်းများ တင်ဆက်ပေးနေသော မျှသာ၊ အရည်အသွေးမြင့်မားသော ဝက်ဘ်ဆိုဒ်တစ်ခု။</p>
-        </div>
-    </section>
+      if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+        resultDiv.classList.add('hidden');
+        alert("ကျေးဇူးပြု၍ စာရင်းများ မှန်ကန်စွာ ဖြည့်ပါ။");
+        return;
+      }
 
-    <!-- News Section -->
-    <section id="news" class="py-12 bg-white">
-        <div class="container mx-auto">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">နောက်ဆုံးသတင်းများ</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-100 rounded-lg p-6 shadow">
-                    <h3 class="text-lg font-semibold mb-2">Build Myanmar Introduction</h3>
-                    <p class="text-gray-600 text-sm mb-4">Build Myanmar သည် မြန်မာနိုင်ငံတွင် နည်းပညာဖြင့် ဖွံ့ဖြိုးတိုးတက်မှုဆောင်ရွက်နေသော အဖွဲ့အစည်းဖြစ်သည်။</p>
-                    <a href="https://www.youtube.com/watch?v=MFDxHbEA68I" target="_blank" class="text-blue-600 hover:underline">လင့်ပါမှတ်တမ်းကြည့်ရန်</a>
-                </div>
+      const bmi = (weight / (height * height)).toFixed(1);
+      let category = "";
 
-                <div class="bg-gray-100 rounded-lg p-6 shadow">
-                    <h3 class="text-lg font-semibold mb-2">နည်းပညာ – သတင်းနှင့် ရသများ</h3>
-                    <p class="text-gray-600 text-sm mb-4">မြန်မာလိုပြောလိုက်နဲ့ ကိုယ်သိချင်တဲ့ ဘာသာစကားကို အသံထွက်ဖတ်ပြပါတယ်။</p>
-                    <a href="https://sma435536636.wordpress.com/category/technology/" target="_blank" class="text-blue-600 hover:underline">ဆက်လက်ဖတ်ရန်</a>
-                </div>
+      if (bmi < 18.5) {
+        category = "အလွန်ပုတ်ပါးပါသည်။";
+      } else if (bmi >= 18.5 && bmi <= 24.9) {
+        category = "သင့်တော်သော ကိုယ်အလေးချိန်ဖြစ်ပါသည်။";
+      } else if (bmi >= 25 && bmi <= 29.9) {
+        category = "အနည်းငယ်ပိုသည်။";
+      } else {
+        category = "အလွန်ပိုသည်။";
+      }
 
-                <div class="bg-gray-100 rounded-lg p-6 shadow">
-                    <h3 class="text-lg font-semibold mb-2">Latest Tech Innovations</h3>
-                    <p class="text-gray-600 text-sm mb-4">နောက်ဆုံးထွက် နည်းပညာများကို တိုက်ရိုက်တင်ဆက်မှုပုံစံဖြစ်သည်။</p>
-                    <a href="#" class="text-blue-600 hover:underline">ဖတ်ရှုရန်</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sports Section -->
-    <section id="sports" class="py-12 bg-gray-200">
-        <div class="container mx-auto">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">အားကစားသတင်း</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-100 rounded-lg p-6 shadow">
-                    <h3 class="text-lg font-semibold mb-2">ကျန်လက်မှတ်ကြည့်ရန် နည်းပညာများ</h3>
-                    <p class="text-gray-600 text-sm mb-4">အားကစားပွဲများနှင့် လေ့ကျင့်ရေးမှတ်တမ်းများ။</p>
-                    <a href="#" class="text-blue-600 hover:underline">တစ်ချက်ကြည့်ရန်</a>
-                </div>
-                <div class="bg-gray-100 rounded-lg p-6 shadow">
-                    <h3 class="text-lg font-semibold mb-2">ယူရိုလောလုပ်ဖွဲ့နှင့် ရှေ့နှင့်မည်</h3>
-                    <p class="text-gray-600 text-sm mb-4">ခြေးကြောက်ခြင်းနက်တြေလို့ပြီး!</p>
-                ---
+      bmiValueSpan.textContent = bmi;
+      bmiCategoryP.textContent = category;
+      resultDiv.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
