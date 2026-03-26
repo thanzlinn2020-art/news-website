@@ -1,147 +1,162 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>မြန်မာသတင်း | Professional News Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>BBC Burmese Clone</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&display=swap');
-
         body {
-            font-family: 'Noto Sans Myanmar', sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
         }
-
-        .admin-mode .admin-tools {
-            display: block;
+        header {
+            background-color: #B80000;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 1.5em;
         }
-
-        .admin-tools {
+        main {
+            padding: 15px;
+        }
+        .hero {
+            margin-bottom: 20px;
+        }
+        .hero img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .story {
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        .story img {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 10px;
+            border-radius: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+        .admin-panel {
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .admin-panel input,
+        .admin-panel button {
+            margin: 5px 0;
+            padding: 10px;
+        }
+        .admin-toggle {
             display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-
-    <!-- Floating Settings Icon -->
-    <div 
-        id="settings-icon" 
-        class="fixed bottom-4 right-4 bg-blue-600 text-white hover:bg-blue-800 rounded-full shadow-lg p-3 cursor-pointer z-50"
-        onclick="toggleAdminMode()"
-        title="Toggle Admin Mode">
-        ⚙️
-    </div>
-
-    <!-- Hero Section -->
-    <div id="hero-section" class="relative bg-gray-900 text-white">
-        <img 
-            src="https://source.unsplash.com/1200x600/?news,world" 
-            alt="Featured News Image" 
-            class="w-full h-72 object-cover opacity-70">
-        <div class="absolute inset-0 flex items-center justify-center p-6">
-            <div class="text-center">
-                <h1 
-                    id="hero-title" 
-                    class="text-3xl font-bold mb-4">ကြီးမားသော သတင်းနာမည်</h1>
-                <p 
-                    id="hero-snippet" 
-                    class="mb-6">Report from the latest breaking news happening in Myanmar and the world.</p>
-                <a 
-                    id="hero-link" 
-                    href="#"
-                    class="bg-blue-600 hover:bg-blue-800 text-white px-4 py-2 rounded">
-                    ဆက်လက်ဖတ်ရှုရန်
-                </a>
+<body>
+    <header>
+        NEWS
+        <br>
+        <small>ဗီြအိုးေအိုင္ ဘား</small>
+    </header>
+    <main>
+        <section id="news-section">
+            <div class="hero" id="hero-story">
+                <img src="https://via.placeholder.com/800x400" alt="Hero Story">
+                <h2 id="hero-title">Hero Story Title</h2>
+                <p id="hero-desc">Hero story description goes here...</p>
             </div>
-        </div>
-    </div>
+            <div id="news-list">
+                <!-- List of news will be populated here -->
+            </div>
+        </section>
 
-    <!-- News Grid Section -->
-    <div class="container mx-auto py-8 px-4">
-        <h2 class="text-2xl font-bold mb-6">နောက်ထပ်သတင်းများ</h2>
-        <div id="news-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- News items will be populated dynamically -->
+        <button id="admin-access" class="hidden">Admin</button>
+        <div id="admin-panel" class="hidden admin-panel">
+            <h3>Admin Panel</h3>
+            <label>
+                Title:
+                <input id="news-title" type="text">
+            </label>
+            <label>
+                Description:
+                <input id="news-desc" type="text">
+            </label>
+            <label>
+                Thumbnail URL:
+                <input id="news-thumbnail" type="text">
+            </label>
+            <button id="add-news">Add News</button>
+            <button id="fetch-latest">Fetch Latest</button>
         </div>
-    </div>
-
-    <!-- JS for functionality -->
+    </main>
+    
     <script>
-        let isAdminMode = false;
-
-        const mockData = [
+        let newsData = JSON.parse(localStorage.getItem('newsData')) || [
+            { 
+                title: "Sample Story 1", 
+                description: "Description for Sample Story 1.", 
+                thumbnail: "https://via.placeholder.com/100"
+            }, 
             {
-                title: "BBC Burmese",
-                link: "https://www.facebook.com/BBCnewsBurmese/photos/%E1%80%80%E1%80%99%E1%80%B9%E1%80%98%E1%80%AC%E1%80%B7%E1%80%A1%E1%80%95%E1%80%BB%E1%80%B1%E1%80%AC%E1%80%BA%E1%80%86%E1%80%AF%E1%80%B6%E1%80%B8%E1%80%94%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%84%E1%80%B6%E1%80%85%E1%80%AC%E1%80%9B%E1%80%84%E1%80%BA%E1%80%B8%E1%80%99%E1%80%BE%E1%80%AC-%E1%80%99%E1%80%BC%E1%80%94%E1%80%BA%E1%80%99%E1%80%AC%E1%80%80-%E1%80%A1%E1%80%86%E1%80%84%E1%80%B7%E1%80%BA-%E1%81%81%E1%81%82%E1%81%89-%E1%80%99%E1%80%BE%E1%80%AC%E1%80%9B%E1%80%BE%E1%80%AD-%E1%80%9E%E1%80%90%E1%80%84%E1%80%BA%E1%80%B8%E1%80%A1%E1%80%95%E1%80%BC%E1%80%8A%E1%80%B7%E1%80%BA%E1%80%A1%E1%80%85%E1%80%AF%E1%80%B6%E1%80%94%E1%80%B2%E1%80%B7%E1%80%A1%E1%80%90%E1%80%B0-/1404542375051755/",
-                snippet: "အခုရက်ပိုင်း ပြည်ပခရီးစဥ်တွေမှာ ပြည်တွင်းက...",
-                date: "3 days ago",
-                position: 1
-            },
-            {
-                title: "Technology – နည်းပညာ/သတင်းနှင့်​ရသအစုံ",
-                link: "https://sma435536636.wordpress.com/category/technology/",
-                snippet: "အပြည်ပြည်ဆိုင်ရာ ဆက်သွယ်ရေး အသင်းအဖွဲ့မှ...",
-                date: "May 7, 2017",
-                position: 2
+                title: "Sample Story 2", 
+                description: "Description for Sample Story 2.", 
+                thumbnail: "https://via.placeholder.com/100"
             }
         ];
 
-        const loadNewsData = () => {
-            const heroSection = mockData[0];
-            document.getElementById("hero-title").innerText = heroSection.title;
-            document.getElementById("hero-snippet").innerText = heroSection.snippet;
-            document.getElementById("hero-link").href = heroSection.link;
+        function renderNews() {
+            const heroStory = newsData[0];
+            document.getElementById('hero-title').textContent = heroStory.title;
+            document.getElementById('hero-desc').textContent = heroStory.description;
 
-            const newsGrid = document.getElementById("news-grid");
-            newsGrid.innerHTML = "";
-
-            mockData.forEach((item, index) => {
-                if (index === 0) return; // Skip the hero section
-                
-                const card = document.createElement("div");
-                card.className = "bg-white shadow-lg rounded-lg overflow-hidden";
-                
-                card.innerHTML = `
-                    <div class="relative h-48">
-                        <img src="https://source.unsplash.com/600x400/?news,${index}" alt="${item.title}" class="w-full h-full object-cover">
-                        ${isAdminMode ? '<button class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded admin-tools" onclick="editNews(${index})">Edit</button>' : ''}
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-xl mb-2">${item.title}</h3>
-                        <p class="text-gray-600 truncate">${item.snippet}</p>
-                        <a href="${item.link}" target="_blank" class="text-blue-600 hover:underline mt-4 block">ဆက်လက်ဖတ်ရှုရန်</a>
-                    </div>
-                `;
-
-                newsGrid.appendChild(card);
+            const newsList = document.getElementById('news-list');
+            newsList.innerHTML = '';
+            newsData.slice(1).forEach((news, index) => {
+                const newsItem = `
+                    <div class="story">
+                        <img src="${news.thumbnail}" alt="News Thumbnail">
+                        <div>
+                            <h3>${news.title}</h3>
+                            <p>${news.description}</p>
+                        </div>
+                    </div>`;
+                newsList.innerHTML += newsItem;
             });
-        };
-
-        const toggleAdminMode = () => {
-            isAdminMode = !isAdminMode;
-            document.body.classList.toggle("admin-mode", isAdminMode);
-            loadNewsData();
-        };
-
-        const editNews = (index) => {
-            const newTitle = prompt("Edit Title", mockData[index].title);
-            const newSnippet = prompt("Edit Snippet", mockData[index].snippet);
-            const newLink = prompt("Edit Link", mockData[index].link);
-
-            if (newTitle) mockData[index].title = newTitle;
-            if (newSnippet) mockData[index].snippet = newSnippet;
-            if (newLink) mockData[index].link = newLink;
-
-            localStorage.setItem("newsData", JSON.stringify(mockData)); // Save to LocalStorage
-            loadNewsData();
-        };
-
-        // Load data from LocalStorage
-        const savedNewsData = localStorage.getItem("newsData");
-        if (savedNewsData) {
-            mockData.splice(0, mockData.length, ...JSON.parse(savedNewsData));
         }
 
-        loadNewsData(); // Initial data load
+        document.getElementById('add-news').addEventListener('click', () => {
+            const title = document.getElementById('news-title').value;
+            const desc = document.getElementById('news-desc').value;
+            const thumbnail = document.getElementById('news-thumbnail').value;
+
+            if (title && desc && thumbnail) {
+                newsData.unshift({ title, description: desc, thumbnail });
+                localStorage.setItem('newsData', JSON.stringify(newsData));
+                renderNews();
+            }
+        });
+
+        document.getElementById('fetch-latest').addEventListener('click', () => {
+            alert("Fetching the latest news... Placeholder functionality.");
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'A' && e.ctrlKey) {
+                const adminPanel = document.getElementById('admin-panel');
+                adminPanel.classList.toggle('hidden');
+            }
+        });
+
+        renderNews();
     </script>
 </body>
 </html>
